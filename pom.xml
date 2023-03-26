@@ -20,6 +20,7 @@
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-boot.version>3.0.1</spring-boot.version>
         <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+        <openapi-generator-maven-plugin.version>6.4.0</openapi-generator-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +46,56 @@
                 <artifactId>annotations</artifactId>
                 <version>23.1.0</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>3.0.5</version>
+                <scope>runtime</scope>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>3.0.5</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-indexer</artifactId>
+                <version>6.0.7</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.26</version>
+                <optional>true</optional>
+            </dependency>
+
+            <!--      task 3      -->
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.6.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-core</artifactId>
+                <version>2.2.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -85,6 +136,31 @@
                         <release>17</release>
                         <parameters>true</parameters>
                     </configuration>
+                </plugin>
+
+                <!--task 3-->
+
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <configuration>
+                                <skipValidateSpec>true</skipValidateSpec>
+                                <generatorName>spring</generatorName>
+                                <apiPackage>openapi.api</apiPackage>
+                                <configOptions>
+                                    <openApiNullable>false</openApiNullable>
+                                    <interfaceOnly>true</interfaceOnly>
+                                    <useSpringBoot3>true</useSpringBoot3>
+                                </configOptions>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
