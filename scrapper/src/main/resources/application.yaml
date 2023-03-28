@@ -4,12 +4,5 @@ app:
 springdoc:
     swagger-ui:
         path: /swagger-ui.html
-
 server:
-    servlet:
-        context-path: /test
-
     port: 8080
-spring:
-    application:
-        name: test
