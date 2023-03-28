@@ -1,5 +1,14 @@
 app:
     test: test
+    scheduler:
+        interval: 10000
+
+baseUrl:
+    github: https://api.github.com
+    stackOverflow: https://api.stackexchange.com/2.3
+
+default:
+    timeout: 30
 
 springdoc:
     swagger-ui:

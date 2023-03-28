@@ -1,15 +1,13 @@
 package ru.tinkoff.edu.scrapper.controller;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.tinkoff.edu.scrapper.dto.AddLinkRequest;
-import ru.tinkoff.edu.scrapper.dto.LinkResponse;
-import ru.tinkoff.edu.scrapper.dto.ListLinksResponse;
-import ru.tinkoff.edu.scrapper.dto.RemoveLinkRequest;
+import ru.tinkoff.edu.scrapper.dto.request.AddLinkRequest;
+import ru.tinkoff.edu.scrapper.dto.request.RemoveLinkRequest;
+import ru.tinkoff.edu.scrapper.dto.response.LinkResponse;
+import ru.tinkoff.edu.scrapper.dto.response.ListLinksResponse;
 
 @RestController
 public class ApiControllerImpl implements ApiController {
