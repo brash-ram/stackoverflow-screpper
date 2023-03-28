@@ -1,11 +1,11 @@
-package ru.tinkoff.edu.scrapper.exception;
+package ru.tinkoff.edu.bot.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.tinkoff.edu.scrapper.dto.ApiErrorResponse;
+import ru.tinkoff.edu.bot.dto.ApiErrorResponse;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
