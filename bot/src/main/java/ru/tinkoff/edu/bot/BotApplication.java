@@ -1,9 +1,9 @@
-package ru.tinkoff.edu;
+package ru.tinkoff.edu.bot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import ru.tinkoff.edu.configuration.ApplicationConfig;
+import ru.tinkoff.edu.bot.configuaration.ApplicationConfig;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ApplicationConfig.class)
