@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.service;
+package ru.tinkoff.edu.service.parser;
 
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataGithub;
@@ -7,17 +7,6 @@ import ru.tinkoff.edu.enums.Site;
 import java.net.URL;
 
 final class LinkParserGitHub extends LinkParser{
-
-    private static LinkParserGitHub instance;
-
-    public static LinkParserGitHub getInstance() {
-        if (instance == null) {
-            synchronized (LinkParserGitHub.class) {
-                instance = new LinkParserGitHub();
-            }
-        }
-        return instance;
-    }
 
     @Override
     public LinkData parseUrl(URL url) {

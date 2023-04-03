@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.service;
+package ru.tinkoff.edu.service.parser;
 
 import lombok.Setter;
 import ru.tinkoff.edu.dto.LinkData;
@@ -6,7 +6,7 @@ import ru.tinkoff.edu.dto.LinkData;
 import java.net.URL;
 
 @Setter
-abstract class LinkParser {
+public abstract class LinkParser {
     protected LinkParser nextParser;
 
     public abstract LinkData parseUrl(URL url);
