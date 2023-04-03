@@ -1,9 +1,14 @@
 package ru.tinkoff.edu.bot.handler;
 
 import com.pengrad.telegrambot.model.Update;
+import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 final class DefaultHandler extends MessageHandler{
+
+    public DefaultHandler(Bot bot) {
+        super(bot);
+    }
 
     @Override
     public void handleMessage(Update update) {

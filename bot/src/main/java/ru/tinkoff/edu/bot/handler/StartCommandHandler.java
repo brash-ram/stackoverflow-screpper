@@ -2,9 +2,14 @@ package ru.tinkoff.edu.bot.handler;
 
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
+import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 public class StartCommandHandler extends MessageHandler{
+    public StartCommandHandler(Bot bot) {
+        super(bot);
+    }
+
     @Override
     public void handleMessage(Update update) {
         Message message = update.message();
