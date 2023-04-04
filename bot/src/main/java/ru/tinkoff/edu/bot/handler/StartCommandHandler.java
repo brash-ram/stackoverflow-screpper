@@ -2,8 +2,11 @@ package ru.tinkoff.edu.bot.handler;
 
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
+import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
+
+@Component
 
 public class StartCommandHandler extends MessageHandler{
     public StartCommandHandler(Bot bot) {

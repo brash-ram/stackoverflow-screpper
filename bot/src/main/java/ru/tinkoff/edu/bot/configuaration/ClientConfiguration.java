@@ -13,8 +13,8 @@ public class ClientConfiguration {
     @Value("${baseUrl.scrapper}")
     private String scrapperBaseUrl;
 
-    @Bean("scrapperClient")
-    public WebClient scrapperClient() {
+    @Bean("scrapperWebClient")
+    public WebClient scrapperWebClient() {
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .baseUrl(scrapperBaseUrl)
