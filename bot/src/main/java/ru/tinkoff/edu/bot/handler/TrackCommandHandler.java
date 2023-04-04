@@ -32,7 +32,7 @@ public class TrackCommandHandler extends MessageHandler{
         if (message.text().equals("/track")) {
             try {
                 Optional<LinkResponse> response = scrapperClient.addLink(new AddLinkRequest(new URI("http://localhost")), 1L);
-                if (response.isPresent()) log.info(response.toString());
+                response.ifPresent(linkResponse -> log.info(linkResponse.toString()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
