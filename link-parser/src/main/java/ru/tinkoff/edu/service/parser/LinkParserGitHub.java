@@ -12,7 +12,7 @@ final class LinkParserGitHub extends LinkParser{
     public LinkData parseUrl(URL url) {
         if (url.getHost().equals(Site.GITHUB.getHost())) {
             String[] githubPath = url.getPath().replaceFirst("/", "").split("/");
-            if (githubPath.length != 0) {
+            if (githubPath.length == 2) {
                 return new LinkDataGithub(
                         url,
                         Site.GITHUB,
