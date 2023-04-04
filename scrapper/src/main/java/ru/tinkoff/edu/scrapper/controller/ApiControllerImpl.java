@@ -22,7 +22,7 @@ public class ApiControllerImpl implements ApiController {
     )
      public ResponseEntity<LinkResponse> linksDelete(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
                                                      @RequestBody RemoveLinkRequest removeLinkRequest) {
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     )
     public ResponseEntity<ListLinksResponse> linksGet(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId) {
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ApiControllerImpl implements ApiController {
     )
     public ResponseEntity<LinkResponse> linksPost(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
                                                   @RequestBody AddLinkRequest addLinkRequest) {
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     )
     public ResponseEntity<Void> tgChatIdDelete(@PathVariable Long id) {
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -64,6 +64,6 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     )
     public ResponseEntity<Void> tgChatIdPost(@PathVariable("id") Long id) {
-        return null;
+        return ResponseEntity.ok().build();
     }
 }

@@ -3,7 +3,7 @@ app:
     token: ${BOT_TOKEN}
 
 baseUrl:
-    scrapper: https://localhost:8081
+    scrapper: http://localhost:8081
 
 default:
     timeout: 5
