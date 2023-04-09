@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.service;
+package ru.tinkoff.edu.service.parser;
 
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataGithub;
@@ -8,22 +8,11 @@ import java.net.URL;
 
 final class LinkParserGitHub extends LinkParser{
 
-    private static LinkParserGitHub instance;
-
-    public static LinkParserGitHub getInstance() {
-        if (instance == null) {
-            synchronized (LinkParserGitHub.class) {
-                instance = new LinkParserGitHub();
-            }
-        }
-        return instance;
-    }
-
     @Override
     public LinkData parseUrl(URL url) {
         if (url.getHost().equals(Site.GITHUB.getHost())) {
             String[] githubPath = url.getPath().replaceFirst("/", "").split("/");
-            if (githubPath.length != 0) {
+            if (githubPath.length == 2) {
                 return new LinkDataGithub(
                         url,
                         Site.GITHUB,

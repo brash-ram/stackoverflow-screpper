@@ -1,2 +1,9 @@
 app:
     test: value
+    token: ${BOT_TOKEN}
+
+baseUrl:
+    scrapper: http://localhost:8081
+
+default:
+    timeout: 5

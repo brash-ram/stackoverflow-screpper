@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.service;
+package ru.tinkoff.edu.service.parser;
 
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataStackOverflow;
@@ -6,18 +6,7 @@ import ru.tinkoff.edu.enums.Site;
 
 import java.net.URL;
 
-class LinkParserStackOverflow extends LinkParser {
-
-    private static LinkParserStackOverflow instance;
-
-    public static LinkParserStackOverflow getInstance() {
-        if (instance == null) {
-            synchronized (LinkParserStackOverflow.class) {
-                instance = new LinkParserStackOverflow();
-            }
-        }
-        return instance;
-    }
+final class LinkParserStackOverflow extends LinkParser {
 
     @Override
     public LinkData parseUrl(URL url) {

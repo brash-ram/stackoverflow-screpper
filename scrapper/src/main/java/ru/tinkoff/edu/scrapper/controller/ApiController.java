@@ -48,7 +48,7 @@ public interface ApiController {
             consumes = { "application/json" }
     )
     ResponseEntity<LinkResponse> linksDelete(
-            @NotNull @Parameter(name = "Tg-Chat-Id", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "Tg-Chat-Id", required = true) Long tgChatId,
+            @NotNull @Parameter(name = "Tg-Chat-Id", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
             @Parameter(name = "RemoveLinkRequest", description = "", required = true) @Valid @RequestBody RemoveLinkRequest removeLinkRequest
     );
 
@@ -78,7 +78,7 @@ public interface ApiController {
             produces = { "application/json" }
     )
     ResponseEntity<ListLinksResponse> linksGet(
-            @NotNull @Parameter(name = "Tg-Chat-Id", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "Tg-Chat-Id", required = true) Long tgChatId
+            @NotNull @Parameter(name = "Tg-Chat-Id", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "Tg-Chat-Id") Long tgChatId
     );
 
 
