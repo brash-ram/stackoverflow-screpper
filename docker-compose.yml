@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+    backend:
+
+services:
+
+    postgres:
+        container_name: postgres_container
+        image: postgres
+        environment:
+            POSTGRES_DB: "scrapper"
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "qwerty"
+        volumes:
+            - ../2. Init Database:/docker-entrypoint-initdb.d
+            - ./postgres-data:/var/lib/postgresql/data
+        ports:
+            - "5433:5432"
+        networks:
+            - backend
+        restart: unless-stopped
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres -d scrapper" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
+    liquibase-migrations:
+        image: liquibase/liquibase:4.18
+        depends_on:
+            - postgres
+        command:
+            - --hub-mode=off
+            - --changelog-file=master.xml
+            - --driver=org.postgresql.Driver
+            - --url=jdbc:postgresql://postgres:5432/scrapper
+            - --username=postgres
+            - --password=qwerty
+            - update
+        volumes:
+            - ./migrations:/liquibase/changelog
+        networks:
+            - backend
