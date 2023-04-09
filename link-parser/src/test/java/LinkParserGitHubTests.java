@@ -1,24 +1,20 @@
-
-
 import org.junit.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataGithub;
 import ru.tinkoff.edu.dto.LinkDataStackOverflow;
 import ru.tinkoff.edu.enums.Site;
 import ru.tinkoff.edu.service.LinkParseService;
-import ru.tinkoff.edu.service.parser.LinkParser;
 import ru.tinkoff.edu.service.parser.ParserConfiguration;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { ParserConfiguration.class, LinkParseService.class })

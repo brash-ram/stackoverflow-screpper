@@ -3,8 +3,6 @@ package ru.tinkoff.edu.bot.handler;
 import com.pengrad.telegrambot.model.Update;
 import ru.tinkoff.edu.bot.tg.Bot;
 
-import java.net.URISyntaxException;
-
 public abstract class MessageHandler {
     protected MessageHandler nextHandler;
 
