@@ -21,8 +21,8 @@ services:
             - backend
         restart: unless-stopped
         healthcheck:
-            test: [ "CMD-SHELL", "pg_isready -U postgres -d scrapper" ]
-            interval: 10s
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+            interval: 20s
             timeout: 5s
             retries: 5
             start_period: 10s
@@ -31,6 +31,7 @@ services:
         image: liquibase/liquibase:4.18
         depends_on:
             - postgres
+        restart: on-failure
         command:
             - --hub-mode=off
             - --changelog-file=master.xml
