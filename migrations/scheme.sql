@@ -3,7 +3,8 @@ CREATE SEQUENCE IF NOT EXISTS links_id_seq start 1;
 CREATE TABLE IF NOT EXISTS links(
     id BIGINT NOT NULL DEFAULT nextval('links_id_seq') PRIMARY KEY,
     url VARCHAR(255) NOT NULL,
-    chat BIGINT NOT NULL
+    chat BIGINT,
+    last_update TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
     );
 
 ALTER SEQUENCE links_id_seq

@@ -27,7 +27,7 @@ public class ApiControllerImpl implements ApiController {
             method = RequestMethod.GET,
             value = "/links",
             produces = { "application/json" }
-    )
+    ) 
     public ResponseEntity<ListLinksResponse> linksGet(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId) {
         return ResponseEntity.ok().build();
     }

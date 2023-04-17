@@ -36,7 +36,7 @@ services:
             - --hub-mode=off
             - --changelog-file=master.xml
             - --driver=org.postgresql.Driver
-            - --url=jdbc:postgresql://postgres:5432/scrapper
+            - --url=jdbc:postgresql://localhost:5432/scrapper
             - --username=postgres
             - --password=qwerty
             - update

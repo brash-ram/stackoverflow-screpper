@@ -15,3 +15,10 @@ springdoc:
         path: /swagger-ui.html
 server:
     port: 8081
+
+spring:
+  datasource:
+      url: jdbc:postgresql://localhost:5432/questionnaire
+      username: postgres
+      password: qwerty
+      driver-class-name: org.postgresql.Driver
