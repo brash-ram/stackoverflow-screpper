@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.scrapper.data.respository.impl;
+package ru.tinkoff.edu.scrapper.data.respository.jdbcImpl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,11 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
+import ru.tinkoff.edu.scrapper.utils.JdbcMapper;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 @Repository
@@ -23,10 +24,30 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
     private final String INSERT = "INSERT INTO chats (chat_id) VALUES (?)";
     private final String DELETE = "DELETE FROM chats WHERE id = ?";
+    private final String FIND_BY_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
+            " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
+            " WHERE c.id = ?";
+    private final String FIND_BY_CHAT_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
+            " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
+            " WHERE c.chat_id = ?";
     private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat";
 
     private final JdbcTemplate jdbcTemplate;
+
+    @Override
+    public Chat findByChatId(Long tgChatId) {
+        return jdbcTemplate.query(FIND_BY_CHAT_ID, rs -> {
+            return mapListChats(rs).get(0);
+        }, tgChatId);
+    }
+
+    @Override
+    public Chat findById(Long id) {
+        return jdbcTemplate.query(FIND_BY_ID, rs -> {
+            return mapListChats(rs).get(0);
+        }, id);
+    }
 
     @Override
     public Chat save(Chat chat) {
@@ -53,38 +74,31 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
     @Override
     public List<Chat> findAll() {
-        return jdbcTemplate.query(FIND_ALL, rs -> {
+        return jdbcTemplate.query(FIND_ALL, this::mapListChats);
+    }
 
-            Map<Long, Chat> resultMap = new LinkedHashMap<>();
+    private List<Chat> mapListChats(ResultSet rs) throws SQLException {
+        Map<Long, Chat> resultMap = new LinkedHashMap<>();
 
-            while (rs.next()) {
+        while (rs.next()) {
 
-                Long id = rs.getLong("id");
+            Long id = rs.getLong("id");
 
-                Chat chat = resultMap.getOrDefault(id, new Chat()
-                        .setId(id)
-                        .setChatId(rs.getLong("chat_id"))
-                        .setLinks(new HashSet<>()));
+            Chat chat = resultMap.getOrDefault(id, JdbcMapper.mapChat(rs));
 
-                try {
-                    if (rs.getString("url") != null) {
-                        Set<Link> links = chat.getLinks();
-                        links.add(new Link()
-                                .setId(rs.getLong("link_id"))
-                                .setChat(chat)
-                                .setUrl(new URI(rs.getString("url")))
-                                .setLastUpdate(rs.getTimestamp("last_update"))
-                        );
-                    }
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                    continue;
+            try {
+                if (rs.getString("url") != null) {
+                    Set<Link> links = chat.getLinks();
+                    links.add(JdbcMapper.mapLink(rs).setChat(chat));
                 }
-
-                resultMap.put(id, chat);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                continue;
             }
 
-            return new ArrayList<>(resultMap.values());
-        });
+            resultMap.put(id, chat);
+        }
+
+        return new ArrayList<>(resultMap.values());
     }
 }

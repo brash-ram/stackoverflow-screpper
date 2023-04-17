@@ -11,4 +11,8 @@ public interface ChatRepository {
     void remove(Long id);
 
     List<Chat> findAll();
+
+    Chat findById(Long id);
+
+    Chat findByChatId(Long tgChatId);
 }

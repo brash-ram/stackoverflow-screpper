@@ -8,7 +8,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
-import ru.tinkoff.edu.scrapper.data.respository.impl.ChatRepositoryJdbcImpl;
+import ru.tinkoff.edu.scrapper.data.respository.jdbcImpl.ChatRepositoryJdbcImpl;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,9 +40,29 @@ public class ChatRepositoryJdbcImplTests {
     @Test
     @Transactional
     @Rollback
+    public void findByIdTest() {
+        Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAt);
+        Chat findChat = chatRepositoryJdbcImpl.findById(chat.getId());
+        assertEquals(chat.getId(), findChat.getId());
+        assertEquals(chat.getChatId(), findChat.getChatId());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void findByChatIdTest() {
+        chatRepositoryJdbcImpl.save(TEST_CHAt);
+        Chat chat = chatRepositoryJdbcImpl.findByChatId(1L);
+        assertNotNull(chat);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
     public void removeTest() {
         Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAt);
         chatRepositoryJdbcImpl.remove(chat.getId());
+        assertEquals(chatRepositoryJdbcImpl.findAll().size(), 0);
     }
 
     @Test

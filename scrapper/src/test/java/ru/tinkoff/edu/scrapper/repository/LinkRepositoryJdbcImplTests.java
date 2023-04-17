@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
-import ru.tinkoff.edu.scrapper.data.respository.impl.LinkRepositoryJdbcImpl;
+import ru.tinkoff.edu.scrapper.data.respository.LinkRepository;
+import ru.tinkoff.edu.scrapper.data.respository.jdbcImpl.LinkRepositoryJdbcImpl;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 
 import java.net.URI;
@@ -22,7 +23,7 @@ public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
     private static Link TEST_LINK;
 
     @Autowired
-    private LinkRepositoryJdbcImpl linkRepositoryJdbcImpl;
+    private LinkRepository linkRepository;
 
     @BeforeAll
     public static void setTestLink() throws URISyntaxException {
@@ -36,7 +37,7 @@ public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
     @Transactional
     @Rollback
     public void addTest() {
-        Link link = linkRepositoryJdbcImpl.save(TEST_LINK);
+        Link link = linkRepository.save(TEST_LINK);
         assertNotNull(link.getId());
     }
 
@@ -44,18 +45,18 @@ public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
     @Transactional
     @Rollback
     public void removeTest() {
-        Link link = linkRepositoryJdbcImpl.save(TEST_LINK);
-        linkRepositoryJdbcImpl.remove(link.getId());
+        Link link = linkRepository.save(TEST_LINK);
+        linkRepository.remove(link.getId());
     }
 
     @Test
     @Transactional
     @Rollback
     public void findAll() {
-        linkRepositoryJdbcImpl.save(TEST_LINK);
-        linkRepositoryJdbcImpl.save(TEST_LINK);
+        linkRepository.save(TEST_LINK);
+        linkRepository.save(TEST_LINK);
 
-        assertEquals(linkRepositoryJdbcImpl.findAll().size(), 2);
+        assertEquals(linkRepository.findAll().size(), 2);
     }
 
 }

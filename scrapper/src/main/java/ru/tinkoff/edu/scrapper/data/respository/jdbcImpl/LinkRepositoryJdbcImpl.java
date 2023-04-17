@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.scrapper.data.respository.impl;
+package ru.tinkoff.edu.scrapper.data.respository.jdbcImpl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.LinkRepository;
+import ru.tinkoff.edu.scrapper.utils.JdbcMapper;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -25,8 +28,18 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
     private final String DELETE = "DELETE FROM links WHERE id = ?";
     private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat";
+    private final String FIND_ALL_BY_CHAT = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
+            " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat" +
+            " WHERE c.id = ?";
 
     private final JdbcTemplate jdbcTemplate;
+
+    @Override
+    public Collection<Link> findAllByChat(Chat chatId) {
+        return jdbcTemplate.query(FIND_ALL, rs -> {
+            return mapListLinks(rs);
+        }, chatId);
+    }
 
     @Override
     public Link save(Link link) {
@@ -57,26 +70,21 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
     @Override
     public List<Link> findAll() {
         return jdbcTemplate.query(FIND_ALL, rs -> {
-            try {
-                List<Link> links = new ArrayList<>();
-                while (rs.next()) {
-                    var test = rs.getLong("id");
-                    links.add(new Link(
-                            rs.getLong("link_id"),
-                            new URI(rs.getString("url")),
-                            new Chat(
-                                    rs.getLong("id"),
-                                    rs.getLong("chat_id"),
-                                    null
-                            ),
-                            rs.getTimestamp("last_update")
-                    ));
-                }
-                return links;
-
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
+            return mapListLinks(rs);
         });
+    }
+
+    private List<Link> mapListLinks(ResultSet rs) {
+        try {
+            List<Link> links = new ArrayList<>();
+            while (rs.next()) {
+                var test = rs.getLong("id");
+                links.add(JdbcMapper.mapLink(rs).setChat(JdbcMapper.mapChat(rs)));
+            }
+            return links;
+
+        } catch (URISyntaxException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
