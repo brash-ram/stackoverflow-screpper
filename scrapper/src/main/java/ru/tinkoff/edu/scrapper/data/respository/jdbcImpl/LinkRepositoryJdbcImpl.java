@@ -28,18 +28,8 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
     private final String DELETE = "DELETE FROM links WHERE id = ?";
     private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat";
-    private final String FIND_ALL_BY_CHAT = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
-            " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat" +
-            " WHERE c.id = ?";
 
     private final JdbcTemplate jdbcTemplate;
-
-    @Override
-    public Collection<Link> findAllByChat(Chat chatId) {
-        return jdbcTemplate.query(FIND_ALL, rs -> {
-            return mapListLinks(rs);
-        }, chatId);
-    }
 
     @Override
     public Link save(Link link) {
@@ -69,9 +59,7 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
 
     @Override
     public List<Link> findAll() {
-        return jdbcTemplate.query(FIND_ALL, rs -> {
-            return mapListLinks(rs);
-        });
+        return jdbcTemplate.query(FIND_ALL, this::mapListLinks);
     }
 
     private List<Link> mapListLinks(ResultSet rs) {

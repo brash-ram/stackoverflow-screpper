@@ -8,8 +8,8 @@ import ru.tinkoff.edu.scrapper.service.ChatService;
 import ru.tinkoff.edu.scrapper.service.LinkService;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +42,7 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
-    public Collection<Link> listAll(long tgChatId) {
-        return linkRepository.findAllByChat(jdbcChatService.getByChatId(tgChatId));
+    public Set<Link> listAll(long tgChatId) {
+        return jdbcChatService.getByChatId(tgChatId).getLinks();
     }
 }

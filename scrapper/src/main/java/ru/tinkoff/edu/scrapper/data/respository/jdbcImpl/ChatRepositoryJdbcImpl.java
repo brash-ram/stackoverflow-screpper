@@ -24,13 +24,13 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
     private final String INSERT = "INSERT INTO chats (chat_id) VALUES (?)";
     private final String DELETE = "DELETE FROM chats WHERE id = ?";
-    private final String FIND_BY_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
+    private final String FIND_BY_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
             " WHERE c.id = ?";
-    private final String FIND_BY_CHAT_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
+    private final String FIND_BY_CHAT_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
             " WHERE c.chat_id = ?";
-    private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url" +
+    private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat";
 
     private final JdbcTemplate jdbcTemplate;
@@ -38,14 +38,16 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
     @Override
     public Chat findByChatId(Long tgChatId) {
         return jdbcTemplate.query(FIND_BY_CHAT_ID, rs -> {
-            return mapListChats(rs).get(0);
+            List<Chat> chats = mapListChats(rs);
+            return chats.isEmpty() ? null : chats.get(0);
         }, tgChatId);
     }
 
     @Override
     public Chat findById(Long id) {
         return jdbcTemplate.query(FIND_BY_ID, rs -> {
-            return mapListChats(rs).get(0);
+            List<Chat> chats = mapListChats(rs);
+            return chats.isEmpty() ? null : chats.get(0);
         }, id);
     }
 
@@ -89,7 +91,7 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
             try {
                 if (rs.getString("url") != null) {
                     Set<Link> links = chat.getLinks();
-                    links.add(JdbcMapper.mapLink(rs).setChat(chat));
+                    links.add(JdbcMapper.mapLink(rs));
                 }
             } catch (URISyntaxException e) {
                 e.printStackTrace();
