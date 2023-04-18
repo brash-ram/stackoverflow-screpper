@@ -30,7 +30,7 @@ public class ScrapperClient {
 
     public Optional<LinkResponse> addLink(AddLinkRequest addLinkRequest, Long id) {
         return scrapperWebClient.post()
-                .uri("/links")
+                .uri(scrapperUrl + "/links")
                 .header("Tg-Chat-Id", id.toString())
                 .body(BodyInserters.fromValue(addLinkRequest))
                 .retrieve()
@@ -45,7 +45,7 @@ public class ScrapperClient {
 
     public Optional<LinkResponse> deleteLink(RemoveLinkRequest removeLinkRequest, Long id) {
         return scrapperWebClient.post()
-                .uri("/links")
+                .uri(scrapperUrl + "/links")
                 .header("Tg-Chat-Id", id.toString())
                 .body(BodyInserters.fromValue(removeLinkRequest))
                 .retrieve()
@@ -60,7 +60,7 @@ public class ScrapperClient {
 
     public Optional<ListLinksResponse> getLinks(Long id) {
         return scrapperWebClient.get()
-                .uri("/links")
+                .uri(scrapperUrl + "/links")
                 .header("Tg-Chat-Id", id.toString())
                 .retrieve()
                 .bodyToMono(ListLinksResponse.class)
@@ -74,7 +74,7 @@ public class ScrapperClient {
 
     public Optional<String> addChat(Long id) {
         return scrapperWebClient.post()
-                .uri("/tg-chat/" + id.toString())
+                .uri(scrapperUrl + "/tg-chat/" + id.toString())
                 .retrieve()
                 .bodyToMono(String.class)
                 .timeout(Duration.ofSeconds(defaultTimeout))
@@ -87,7 +87,7 @@ public class ScrapperClient {
 
     public Optional<String> deleteChat(Long id) {
         return scrapperWebClient.delete()
-                .uri("/tg-chat/" + id.toString())
+                .uri(scrapperUrl + "/tg-chat/" + id.toString())
                 .retrieve()
                 .bodyToMono(String.class)
                 .timeout(Duration.ofSeconds(defaultTimeout))

@@ -31,4 +31,11 @@ public class ClientConfiguration {
                 .baseUrl(stackOverflowBaseUrl)
                 .build();
     }
+
+    @Bean("botClient")
+    public WebClient botClient() {
+        return WebClient.builder()
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 }
