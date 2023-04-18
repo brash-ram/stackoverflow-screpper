@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.scrapper.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.dto.LinkData;
@@ -22,9 +23,16 @@ public class LinkUpdaterScheduler {
     private final LinkService linkService;
     private final LinkParseService linkParseService;
 
+    @Value("${app.scheduler.linkUpdate}")
+    private Integer timeLinkUpdate;
+
     @Scheduled(fixedDelayString = "#{@delay}")
     public void update() {
-        System.out.println("Update");
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        List<Link> links = linkService.getAll().stream()
+                .filter(link -> link.getLastUpdate().getTime() + timeLinkUpdate > now.getTime()).
+                toList();
+        updateLinks(links);
     }
 
     public void updateLinks(List<Link> links) {

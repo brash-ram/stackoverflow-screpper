@@ -22,6 +22,11 @@ public class JdbcLinkService implements LinkService {
     private final ChatService jdbcChatService;
 
     @Override
+    public List<Link> getAll() {
+        return linkRepository.findAll();
+    }
+
+    @Override
     public void updateTimeUpdate(Long linkId, Timestamp timeUpdate) {
         linkRepository.updateLastUpdate(linkId, timeUpdate);
     }

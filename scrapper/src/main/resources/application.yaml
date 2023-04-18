@@ -2,6 +2,7 @@ app:
     test: test
     scheduler:
         interval: 10000
+        linkUpdate: 600000
 
 baseUrl:
     github: https://api.github.com
