@@ -21,7 +21,7 @@ public class BotClient {
     @Value("${baseUrl.scrapper}")
     private String scrapperUrl;
 
-    public void addLink(LinkUpdateRequest linkUpdateRequest) {
+    public void updateLink(LinkUpdateRequest linkUpdateRequest) {
         botClient.post()
                 .uri(scrapperUrl)
                 .body(BodyInserters.fromValue(linkUpdateRequest))

@@ -59,4 +59,16 @@ public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
         assertEquals(linkRepository.findAll().size(), 2);
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void updateLastUpdateAll() {
+        Link link = linkRepository.save(TEST_LINK);
+        Timestamp timestamp = new Timestamp(100000000L);
+        linkRepository.updateLastUpdate(link.getId(), timestamp);
+        link = linkRepository.findAll().get(0);
+
+        assertEquals(link.getLastUpdate(), timestamp);
+    }
+
 }

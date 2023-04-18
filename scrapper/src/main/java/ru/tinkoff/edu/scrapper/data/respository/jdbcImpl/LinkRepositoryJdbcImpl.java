@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +30,16 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
     private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat";
 
+    private final String UPDATE_LAST_UPDATE = "UPDATE links" +
+            " SET last_update = ?" +
+            " WHERE id = ?";
+
     private final JdbcTemplate jdbcTemplate;
+
+    @Override
+    public void updateLastUpdate(Long id, Timestamp timestamp) {
+        jdbcTemplate.update(UPDATE_LAST_UPDATE, timestamp, id);
+    }
 
     @Override
     public Link save(Link link) {

@@ -11,6 +11,8 @@ import ru.tinkoff.edu.service.LinkParseService;
 import ru.tinkoff.edu.service.parser.ParserConfiguration;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,10 +26,10 @@ public class LinkParserGitHubTests {
 
     @Test
     public void parseGithubLink(){
-        URL link;
+        URI link;
         try {
-            link = new URL("https://github.com/brash-ram/tinkoff-screpper");
-        } catch (MalformedURLException e) {
+            link = new URI("https://github.com/brash-ram/tinkoff-screpper");
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         LinkData expected = new LinkDataGithub(link, Site.GITHUB, "brash-ram", "tinkoff-screpper");
@@ -36,10 +38,10 @@ public class LinkParserGitHubTests {
 
     @Test
     public void parseValidStackOverflowLink(){
-        URL link;
+        URI link;
         try {
-            link = new URL("https://stackoverflow.com/questions/57772342/how-to-add-a-bean-in-springboottest");
-        } catch (MalformedURLException e) {
+            link = new URI("https://stackoverflow.com/questions/57772342/how-to-add-a-bean-in-springboottest");
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         LinkData expected = new LinkDataStackOverflow(link, Site.STACK_OVERFLOW, 57772342L);
@@ -48,10 +50,10 @@ public class LinkParserGitHubTests {
 
     @Test
     public void parseInvalidGitHubLink(){
-        URL link;
+        URI link;
         try {
-            link = new URL("https://github.com/features");
-        } catch (MalformedURLException e) {
+            link = new URI("https://github.com/features");
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         assertNull(linkParseService.parseLink(link));
@@ -59,10 +61,10 @@ public class LinkParserGitHubTests {
 
     @Test
     public void parseInvalidStackOverflowLink(){
-        URL link;
+        URI link;
         try {
-            link = new URL("https://stackoverflow.com/");
-        } catch (MalformedURLException e) {
+            link = new URI("https://stackoverflow.com/");
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         assertNull(linkParseService.parseLink(link));
