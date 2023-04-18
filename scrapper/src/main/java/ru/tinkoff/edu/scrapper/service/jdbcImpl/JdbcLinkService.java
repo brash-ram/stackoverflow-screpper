@@ -2,6 +2,7 @@ package ru.tinkoff.edu.scrapper.service.jdbcImpl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.LinkRepository;
 import ru.tinkoff.edu.scrapper.service.ChatService;
@@ -46,6 +47,11 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public List<Link> listAll(long tgChatId) {
-        return jdbcChatService.getByChatId(tgChatId).getLinks();
+        Chat chat = jdbcChatService.getByChatId(tgChatId);
+        if (chat.getLinks().isEmpty()) {
+            return chat.getLinks();
+        } else {
+            throw new RuntimeException("Links not found");
+        }
     }
 }

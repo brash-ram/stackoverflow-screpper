@@ -43,8 +43,8 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     ) 
     public ResponseEntity<ListLinksResponse> linksGet(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId) {
-        List<Link> link = jdbcLinkService.listAll(tgChatId);
-        return ResponseEntity.ok().build();
+        List<Link> links = jdbcLinkService.listAll(tgChatId);
+        return ResponseEntity.ok(dtoMapper.convertListLinkToListLinkResponse(links));
     }
 
     @Override
