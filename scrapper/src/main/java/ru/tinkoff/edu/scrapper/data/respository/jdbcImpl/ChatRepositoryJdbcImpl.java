@@ -90,7 +90,7 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
             try {
                 if (rs.getString("url") != null) {
-                    Set<Link> links = chat.getLinks();
+                    List<Link> links = chat.getLinks();
                     links.add(JdbcMapper.mapLink(rs));
                 }
             } catch (URISyntaxException e) {

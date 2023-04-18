@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,5 +14,5 @@ import java.util.Set;
 public class Chat {
     private Long id;
     private Long chatId;
-    private Set<Link> links;
+    private List<Link> links;
 }

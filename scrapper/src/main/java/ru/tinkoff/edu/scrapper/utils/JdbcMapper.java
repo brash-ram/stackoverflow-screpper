@@ -7,14 +7,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class JdbcMapper {
     public static Chat mapChat(ResultSet rs) throws SQLException {
         return new Chat()
                 .setId(rs.getLong("id"))
                 .setChatId(rs.getLong("chat_id"))
-                .setLinks(new HashSet<>());
+                .setLinks(new ArrayList<>());
     }
 
     public static Link mapLink(ResultSet rs) throws SQLException, URISyntaxException {

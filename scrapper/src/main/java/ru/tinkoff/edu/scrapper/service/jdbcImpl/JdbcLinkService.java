@@ -8,6 +8,8 @@ import ru.tinkoff.edu.scrapper.service.ChatService;
 import ru.tinkoff.edu.scrapper.service.LinkService;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ public class JdbcLinkService implements LinkService {
         return linkRepository.save(new Link()
                 .setUrl(url)
                 .setChat(jdbcChatService.getByChatId(tgChatId))
+                .setLastUpdate(new Timestamp(System.currentTimeMillis()))
         );
     }
 
@@ -42,7 +45,7 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
-    public Set<Link> listAll(long tgChatId) {
+    public List<Link> listAll(long tgChatId) {
         return jdbcChatService.getByChatId(tgChatId).getLinks();
     }
 }
