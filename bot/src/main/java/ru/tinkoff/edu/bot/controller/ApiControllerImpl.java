@@ -24,7 +24,7 @@ public class ApiControllerImpl implements ApiController {
             consumes = { "application/json" }
     )
     public ResponseEntity<Void> updatesPost(@RequestBody LinkUpdate linkUpdate) {
-        bot.send(new SendMessageAdapter(linkUpdate.id(), linkUpdate.description()).getSendMessage());
+        bot.send(new SendMessageAdapter(linkUpdate.tgChatIds().get(0), linkUpdate.description()).getSendMessage());
         return ResponseEntity.ok().build();
     }
 }

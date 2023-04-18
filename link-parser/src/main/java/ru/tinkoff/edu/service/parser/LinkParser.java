@@ -4,7 +4,6 @@ import lombok.Setter;
 import ru.tinkoff.edu.dto.LinkData;
 
 import java.net.URI;
-import java.net.URL;
 
 @Setter
 public abstract class LinkParser {

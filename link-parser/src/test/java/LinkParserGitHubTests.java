@@ -10,10 +10,8 @@ import ru.tinkoff.edu.enums.Site;
 import ru.tinkoff.edu.service.LinkParseService;
 import ru.tinkoff.edu.service.parser.ParserConfiguration;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

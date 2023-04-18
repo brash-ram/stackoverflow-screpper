@@ -1,11 +1,10 @@
 package ru.tinkoff.edu.service.parser;
 
+import ru.tinkoff.edu.enums.Site;
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataStackOverflow;
-import ru.tinkoff.edu.enums.Site;
 
 import java.net.URI;
-import java.net.URL;
 
 final class LinkParserStackOverflow extends LinkParser {
 

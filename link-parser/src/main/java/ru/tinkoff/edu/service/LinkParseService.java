@@ -6,7 +6,6 @@ import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.service.parser.LinkParser;
 
 import java.net.URI;
-import java.net.URL;
 
 @Service
 @RequiredArgsConstructor

@@ -7,3 +7,6 @@ baseUrl:
 
 default:
     timeout: 5
+
+server:
+    port: 8080

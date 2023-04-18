@@ -24,12 +24,7 @@ public class StartCommandHandler extends MessageHandler{
     public void handleMessage(Update update) {
         Message message = update.message();
         if (message.text().equals("/start")) {
-            try {
-                Optional<String> response = scrapperClient.addChat(1L);
-                response.ifPresent(log::info);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Optional<String> response = scrapperClient.addChat(message.chat().id());
             bot.send(new SendMessageAdapter(message.chat().id(), DEFAULT_MASSAGE + "start")
                     .getSendMessage());
         } else {

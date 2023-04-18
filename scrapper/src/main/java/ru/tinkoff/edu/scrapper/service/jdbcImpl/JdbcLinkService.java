@@ -23,7 +23,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public List<Link> getAllBefore(Timestamp borderTime) {
-        return null;
+        return linkRepository.findAllBefore(borderTime);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class JdbcLinkService implements LinkService {
     @Override
     public List<Link> listAll(long tgChatId) {
         Chat chat = jdbcChatService.getByChatId(tgChatId);
-        if (chat.getLinks().isEmpty()) {
+        if (!chat.getLinks().isEmpty()) {
             return chat.getLinks();
         } else {
             throw new RuntimeException("Links not found");

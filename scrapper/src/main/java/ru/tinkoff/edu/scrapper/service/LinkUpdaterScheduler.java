@@ -1,7 +1,9 @@
 package ru.tinkoff.edu.scrapper.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.dto.LinkData;
@@ -23,25 +25,30 @@ public class LinkUpdaterScheduler {
     private final LinkService linkService;
     private final LinkParseService linkParseService;
 
-    @Value("${app.scheduler.linkUpdate}")
+    @Value("${scheduler.linkUpdate}")
     private Integer timeLinkUpdate;
 
     @Scheduled(fixedDelayString = "#{@delay}")
     public void update() {
-        updateLinks(linkService.getAllBefore(new Timestamp(System.currentTimeMillis() - timeLinkUpdate)));
+        List<Link> links = linkService.getAllBefore(new Timestamp(System.currentTimeMillis() - timeLinkUpdate));
+        if (links != null) {
+            updateLinks(links);
+        }
     }
 
     public void updateLinks(List<Link> links) {
         for (Link link : links) {
             LinkData linkData = linkParseService.parseLink(link.getUrl());
-            String description = apiService.checkUpdate(linkData);
-            sendLinkUpdateMessage(new LinkUpdateRequest(
-                    link.getId(),
-                    link.getUrl(),
-                    description,
-                    List.of(link.getChat().getChatId())
-            ));
-            linkService.updateTimeUpdate(link.getId(), new Timestamp(System.currentTimeMillis()));
+            if (linkData != null) {
+                String description = apiService.checkUpdate(linkData);
+                sendLinkUpdateMessage(new LinkUpdateRequest(
+                        link.getId(),
+                        link.getUrl(),
+                        description,
+                        List.of(link.getChat().getChatId())
+                ));
+                linkService.updateTimeUpdate(link.getId(), new Timestamp(System.currentTimeMillis()));
+            }
         }
     }
 

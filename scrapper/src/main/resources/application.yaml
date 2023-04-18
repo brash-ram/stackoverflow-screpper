@@ -2,8 +2,9 @@ app:
     test: test
     scheduler:
         interval: 10000
-        linkUpdate: 600000
 
+scheduler:
+    linkUpdate: 6000
 api:
     github:
         token: ${GITHUB_TOKEN}
@@ -11,6 +12,7 @@ api:
 baseUrl:
     github: https://api.github.com
     stackOverflow: https://api.stackexchange.com/2.3
+    bot: http://localhost:8080
 
 default:
     timeout: 30
@@ -22,8 +24,8 @@ server:
     port: 8081
 
 spring:
-  datasource:
-      url: jdbc:postgresql://localhost:5434/scrapper
-      username: postgres
-      password: qwerty
-      driver-class-name: org.postgresql.Driver
+    datasource:
+        url: jdbc:postgresql://localhost:5434/scrapper
+        username: postgres
+        password: qwerty
+        driver-class-name: org.postgresql.Driver

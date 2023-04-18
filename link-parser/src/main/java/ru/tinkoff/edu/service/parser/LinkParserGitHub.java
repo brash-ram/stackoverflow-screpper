@@ -5,7 +5,6 @@ import ru.tinkoff.edu.dto.LinkDataGithub;
 import ru.tinkoff.edu.enums.Site;
 
 import java.net.URI;
-import java.net.URL;
 
 final class LinkParserGitHub extends LinkParser{
 

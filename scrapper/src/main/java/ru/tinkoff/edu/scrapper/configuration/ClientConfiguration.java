@@ -32,8 +32,8 @@ public class ClientConfiguration {
                 .build();
     }
 
-    @Bean("botClient")
-    public WebClient botClient() {
+    @Bean("botWebClient")
+    public WebClient botWebClient() {
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();

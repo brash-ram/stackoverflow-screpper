@@ -45,7 +45,7 @@ public class ScrapperClient {
 
     public Optional<LinkResponse> deleteLink(RemoveLinkRequest removeLinkRequest, Long id) {
         return scrapperWebClient.post()
-                .uri(scrapperUrl + "/links")
+                .uri(scrapperUrl + "/links/delete")
                 .header("Tg-Chat-Id", id.toString())
                 .body(BodyInserters.fromValue(removeLinkRequest))
                 .retrieve()

@@ -25,8 +25,8 @@ public class ApiControllerImpl implements ApiController {
 
     @Override
     @RequestMapping(
-            method = RequestMethod.DELETE,
-            value = "/links",
+            method = RequestMethod.POST,
+            value = "/links/delete",
             produces = { "application/json" },
             consumes = { "application/json" }
     )
