@@ -4,6 +4,10 @@ app:
         interval: 10000
         linkUpdate: 600000
 
+api:
+    github:
+        token: ${GITHUB_TOKEN}
+
 baseUrl:
     github: https://api.github.com
     stackOverflow: https://api.stackexchange.com/2.3

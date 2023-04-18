@@ -15,9 +15,13 @@ public class GitHubClient {
     @Value("${default.timeout}")
     private Integer defaultTimeout;
 
+    @Value("${api.github.token}")
+    private String githubToken;
+
     public GitHubRepositoryInfoResponse getGitHubRepositoryInfo(String username, String repositoryName) {
         return gitHubWebClient.get()
                 .uri("/repos/{username}/{repositoryName}", username, repositoryName)
+                .header("Authorization", "Bearer " + githubToken)
                 .retrieve()
                 .bodyToMono(GitHubRepositoryInfoResponse.class)
                 .timeout(Duration.ofSeconds(defaultTimeout))
