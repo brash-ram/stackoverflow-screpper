@@ -28,11 +28,7 @@ public class LinkUpdaterScheduler {
 
     @Scheduled(fixedDelayString = "#{@delay}")
     public void update() {
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        List<Link> links = linkService.getAll().stream()
-                .filter(link -> link.getLastUpdate().getTime() + timeLinkUpdate > now.getTime()).
-                toList();
-        updateLinks(links);
+        updateLinks(linkService.getAllBefore(new Timestamp(System.currentTimeMillis() - timeLinkUpdate)));
     }
 
     public void updateLinks(List<Link> links) {

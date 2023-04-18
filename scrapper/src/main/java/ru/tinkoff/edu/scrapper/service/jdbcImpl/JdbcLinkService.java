@@ -22,6 +22,11 @@ public class JdbcLinkService implements LinkService {
     private final ChatService jdbcChatService;
 
     @Override
+    public List<Link> getAllBefore(Timestamp borderTime) {
+        return null;
+    }
+
+    @Override
     public List<Link> getAll() {
         return linkRepository.findAll();
     }

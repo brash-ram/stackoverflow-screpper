@@ -13,5 +13,8 @@ public interface LinkRepository {
     void remove(Long id);
 
     List<Link> findAll();
+
     void updateLastUpdate(Long id, Timestamp timestamp);
+
+    List<Link> findAllBefore(Timestamp borderTime);
 }

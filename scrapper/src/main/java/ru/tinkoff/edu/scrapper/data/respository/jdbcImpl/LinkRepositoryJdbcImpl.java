@@ -26,9 +26,15 @@ import java.util.List;
 public class LinkRepositoryJdbcImpl implements LinkRepository {
 
     private final String INSERT = "INSERT INTO links (url, chat, last_update) VALUES (?, ?, ?)";
+
     private final String DELETE = "DELETE FROM links WHERE id = ?";
+
     private final String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat";
+
+    private final String FIND_ALL_BEFORE = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
+            " FROM chats AS c RIGHT JOIN links AS l ON c.id = l.chat" +
+            " WHERE l.last_update < ?";
 
     private final String UPDATE_LAST_UPDATE = "UPDATE links" +
             " SET last_update = ?" +
@@ -39,6 +45,11 @@ public class LinkRepositoryJdbcImpl implements LinkRepository {
     @Override
     public void updateLastUpdate(Long id, Timestamp timestamp) {
         jdbcTemplate.update(UPDATE_LAST_UPDATE, timestamp, id);
+    }
+
+    @Override
+    public List<Link> findAllBefore(Timestamp borderTime) {
+        return jdbcTemplate.query(FIND_ALL_BEFORE, this::mapListLinks, borderTime);
     }
 
     @Override
