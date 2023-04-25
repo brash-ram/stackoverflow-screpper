@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.scrapper.repository;
+package ru.tinkoff.edu.scrapper.repository.jdbc;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,9 @@ import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
 import ru.tinkoff.edu.scrapper.data.respository.jdbcImpl.ChatRepositoryJdbcImpl;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {IntegrationEnvironment.IntegrationEnvironmentConfiguration.class, ChatRepositoryJdbcImpl.class})
 public class ChatRepositoryJdbcImplTests {
@@ -24,7 +25,6 @@ public class ChatRepositoryJdbcImplTests {
 
     @BeforeAll
     public static void setTestChat() {
-        IntegrationEnvironment.runMigration();
         TEST_CHAt = new Chat()
                 .setChatId(1L);
     }
@@ -42,9 +42,11 @@ public class ChatRepositoryJdbcImplTests {
     @Rollback
     public void findByIdTest() {
         Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAt);
-        Chat findChat = chatRepositoryJdbcImpl.findById(chat.getId());
-        assertEquals(chat.getId(), findChat.getId());
-        assertEquals(chat.getChatId(), findChat.getChatId());
+        Optional<Chat> findChat = chatRepositoryJdbcImpl.findById(chat.getId());
+        assertTrue(findChat.isPresent());
+        Chat presentChat = findChat.get();
+        assertEquals(chat.getId(), presentChat.getId());
+        assertEquals(chat.getChatId(), presentChat.getChatId());
     }
 
     @Test

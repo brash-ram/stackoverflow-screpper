@@ -11,15 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = {IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})
-public class IntegrationTests extends IntegrationEnvironment {
+public class IntegrationTests {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    @BeforeAll
-    public static void beforeAllTest() {
-        IntegrationEnvironment.runMigration();
-    }
 
     @Test
     public void databaseTest() {

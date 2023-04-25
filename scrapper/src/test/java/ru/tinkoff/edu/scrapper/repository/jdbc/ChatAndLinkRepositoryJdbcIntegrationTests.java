@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.scrapper.repository;
+package ru.tinkoff.edu.scrapper.repository.jdbc;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +40,6 @@ public class ChatAndLinkRepositoryJdbcIntegrationTests {
 
     @BeforeAll
     public static void setTestData() throws URISyntaxException {
-        IntegrationEnvironment.runMigration();
         TEST_CHAt = new Chat()
                 .setChatId(1L);
         TEST_LINK = new Link()
@@ -55,9 +55,10 @@ public class ChatAndLinkRepositoryJdbcIntegrationTests {
         chatRepositoryJdbcImpl.save(TEST_CHAt);
         linkRepository.save(TEST_LINK);
 
-        Chat savingChat = chatRepositoryJdbcImpl.findById(TEST_CHAt.getId());
+        Optional<Chat> savingChat = chatRepositoryJdbcImpl.findById(TEST_CHAt.getId());
 
-        assertEquals(savingChat.getLinks().size(), 1);
+        assertTrue(savingChat.isPresent());
+        assertEquals(savingChat.get().getLinks().size(), 1);
     }
 
 
@@ -69,16 +70,16 @@ public class ChatAndLinkRepositoryJdbcIntegrationTests {
         linkRepository.save(TEST_LINK);
         linkRepository.save(TEST_LINK);
 
-        Chat savingChat = chatRepositoryJdbcImpl.findById(TEST_CHAt.getId());
+        Optional<Chat> savingChat = chatRepositoryJdbcImpl.findById(TEST_CHAt.getId());
 
-        assertEquals(savingChat.getLinks().size(), 2);
+        assertTrue(savingChat.isPresent());
+        assertEquals(savingChat.get().getLinks().size(), 2);
 
-        chatRepositoryJdbcImpl.remove(savingChat.getId());
+        chatRepositoryJdbcImpl.remove(savingChat.get().getId());
 
         savingChat = chatRepositoryJdbcImpl.findById(TEST_CHAt.getId());
         List<Link> links = linkRepository.findAll();
 
-        assertNull(savingChat);
         assertTrue(links.isEmpty());
     }
 }

@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.scrapper.repository;
+package ru.tinkoff.edu.scrapper.repository.jdbc;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(classes = {IntegrationEnvironment.IntegrationEnvironmentConfiguration.class, LinkRepositoryJdbcImpl.class})
-public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
+public class LinkRepositoryJdbcImplTests {
     private static Link TEST_LINK;
 
     @Autowired
@@ -27,7 +27,6 @@ public class LinkRepositoryJdbcImplTests extends IntegrationEnvironment  {
 
     @BeforeAll
     public static void setTestLink() throws URISyntaxException {
-        IntegrationEnvironment.runMigration();
         TEST_LINK = new Link()
                 .setUrl(new URI("http://localhost:8080"))
                 .setLastUpdate(new Timestamp(System.currentTimeMillis()));

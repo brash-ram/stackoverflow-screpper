@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.scrapper.data.respository.jdbcImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -44,11 +45,11 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
     }
 
     @Override
-    public Chat findById(Long id) {
-        return jdbcTemplate.query(FIND_BY_ID, rs -> {
+    public Optional<Chat> findById(Long id) {
+        return Optional.ofNullable(jdbcTemplate.query(FIND_BY_ID, rs -> {
             List<Chat> chats = mapListChats(rs);
             return chats.isEmpty() ? null : chats.get(0);
-        }, id);
+        }, id));
     }
 
     @Override

@@ -6,7 +6,6 @@ import ru.tinkoff.edu.scrapper.data.entity.Link;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Repository
 public interface LinkRepository {
     Link save(Link link);
 

@@ -1,10 +1,10 @@
 app:
     test: test
     scheduler:
-        interval: 10000
+        interval: 60000
 
 scheduler:
-    linkUpdate: 6000
+    linkUpdate: 60000
 api:
     github:
         token: ${GITHUB_TOKEN}
@@ -24,6 +24,21 @@ server:
     port: 8081
 
 spring:
+    jpa:
+        defer-datasource-initialization: false
+        properties:
+            hibernate:
+                format_sql: true
+                generate_statistics: true
+                jdbc:
+                    batch_size: 50
+                    fetch_size: 50
+                order_updates: true
+                order_insert: true
+        open-in-view: true
+        show-sql: true
+        hibernate:
+            ddl-auto: none
     datasource:
         url: jdbc:postgresql://localhost:5434/scrapper
         username: postgres

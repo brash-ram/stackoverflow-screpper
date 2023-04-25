@@ -10,9 +10,12 @@ import liquibase.resource.DirectoryResourceAccessor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.JdbcTransactionManager;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -30,7 +33,7 @@ public abstract class IntegrationEnvironment {
     public static class IntegrationEnvironmentConfiguration {
 
         @Bean
-        public DataSource testDataSource() {
+        public DataSource dataSource() {
             return DataSourceBuilder.create()
                     .url(POSTGRESQL_CONTAINER.getJdbcUrl())
                     .username(POSTGRESQL_CONTAINER.getUsername())
@@ -47,6 +50,7 @@ public abstract class IntegrationEnvironment {
         public PlatformTransactionManager transactionManager(DataSource dataSource) {
             return new JdbcTransactionManager(dataSource);
         }
+
     }
 
     static protected final PostgreSQLContainer POSTGRESQL_CONTAINER;
@@ -62,9 +66,17 @@ public abstract class IntegrationEnvironment {
                 .withPassword(password)
                 .withExposedPorts(dbPort);
         POSTGRESQL_CONTAINER.start();
+        runMigration();
     }
 
-    public static void runMigration() {
+    @DynamicPropertySource
+    static void jdbcProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", POSTGRESQL_CONTAINER::getJdbcUrl);
+        registry.add("spring.datasource.username", POSTGRESQL_CONTAINER::getUsername);
+        registry.add("spring.datasource.password", POSTGRESQL_CONTAINER::getPassword);
+    }
+
+    private static void runMigration() {
         try {
             String url = POSTGRESQL_CONTAINER.getJdbcUrl();
             String username = POSTGRESQL_CONTAINER.getUsername();

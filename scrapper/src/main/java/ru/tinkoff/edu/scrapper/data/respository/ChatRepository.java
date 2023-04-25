@@ -3,6 +3,7 @@ package ru.tinkoff.edu.scrapper.data.respository;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChatRepository {
 
@@ -12,7 +13,7 @@ public interface ChatRepository {
 
     List<Chat> findAll();
 
-    Chat findById(Long id);
+    Optional<Chat> findById(Long id);
 
     Chat findByChatId(Long tgChatId);
 }
