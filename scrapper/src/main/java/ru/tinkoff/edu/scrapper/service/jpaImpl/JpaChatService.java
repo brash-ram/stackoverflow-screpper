@@ -26,7 +26,7 @@ public class JpaChatService implements ChatService {
 
     @Override
     public Chat getById(long id) {
-        return jpaChatRepository.findByChatId(id);
+        return jpaChatRepository.findById(id).get();
     }
 
     @Override
