@@ -20,7 +20,7 @@ public class LinkUpdaterScheduler {
 
     private final ApiService apiService;
     private final BotClient botClient;
-    private final LinkService jpaLinkService;
+    private final LinkService linkService;
     private final LinkParseService linkParseService;
 
     @Value("${scheduler.linkUpdate}")
@@ -28,7 +28,7 @@ public class LinkUpdaterScheduler {
 
     @Scheduled(fixedDelayString = "#{@delay}")
     public void update() {
-        List<Link> links = jpaLinkService.getAllBefore(new Timestamp(System.currentTimeMillis() - timeLinkUpdate));
+        List<Link> links = linkService.getAllBefore(new Timestamp(System.currentTimeMillis() - timeLinkUpdate));
         if (links != null) {
             updateLinks(links);
         }
@@ -45,7 +45,7 @@ public class LinkUpdaterScheduler {
                         description,
                         List.of(link.getChat().getChatId())
                 ));
-                jpaLinkService.updateTimeUpdate(link.getId(), new Timestamp(System.currentTimeMillis()));
+                linkService.updateTimeUpdate(link.getId(), new Timestamp(System.currentTimeMillis()));
             }
         }
     }

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-@Repository
+
 @RequiredArgsConstructor
 @Transactional
 public class ChatRepositoryJdbcImpl implements ChatRepository {

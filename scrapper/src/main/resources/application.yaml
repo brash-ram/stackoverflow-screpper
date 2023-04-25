@@ -2,6 +2,7 @@ app:
     test: test
     scheduler:
         interval: 60000
+    database-access-type: jpa
 
 scheduler:
     linkUpdate: 60000

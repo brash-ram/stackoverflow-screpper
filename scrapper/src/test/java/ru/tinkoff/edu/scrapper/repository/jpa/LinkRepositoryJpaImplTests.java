@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DataJpaTest(excludeAutoConfiguration = LiquibaseAutoConfiguration.class)
-@Import({IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})
+@Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class LinkRepositoryJpaImplTests  {
     private static Link TEST_LINK;

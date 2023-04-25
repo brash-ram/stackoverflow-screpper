@@ -25,6 +25,9 @@ public class Chat {
     @Column(name = "chat_id")
     private Long chatId;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "links",
+            joinColumns = @JoinColumn(name = "chat"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
     private List<Link> links;
 }

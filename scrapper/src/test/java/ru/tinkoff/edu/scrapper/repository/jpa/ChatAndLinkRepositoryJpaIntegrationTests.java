@@ -24,11 +24,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest(excludeAutoConfiguration = LiquibaseAutoConfiguration.class)
-@Import(IntegrationEnvironment.IntegrationEnvironmentConfiguration.class)
+@Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ChatAndLinkRepositoryJpaIntegrationTests {
 
-    private static Chat TEST_CHAt;
+    private static Chat TEST_CHAT;
     private static Link TEST_LINK;
 
     @Autowired
@@ -39,22 +39,22 @@ public class ChatAndLinkRepositoryJpaIntegrationTests {
 
     @BeforeAll
     public static void setTestData() throws URISyntaxException {
-        TEST_CHAt = new Chat()
+        TEST_CHAT = new Chat()
                 .setChatId(1L);
         TEST_LINK = new Link()
                 .setUrl(new URI("http://localhost:8080"))
                 .setLastUpdate(new Timestamp(System.currentTimeMillis()))
-                .setChat(TEST_CHAt);
+                .setChat(TEST_CHAT);
     }
 
     @Test
     @Transactional
     @Rollback
     public void saveChatAndLinkTest() {
-        jpaChatRepository.save(TEST_CHAt);
-        jpaLinkRepository.save(TEST_LINK);
+        Link link = jpaLinkRepository.save(TEST_LINK.setChat(null));
+        Chat chat = jpaChatRepository.save(TEST_CHAT.setLinks(List.of(link)));
 
-        Optional<Chat> savingChat = jpaChatRepository.findById(TEST_CHAt.getId());
+        Optional<Chat> savingChat = jpaChatRepository.findById(chat.getId());
 
         assertTrue(savingChat.isPresent());
         assertEquals(savingChat.get().getLinks().size(), 1);
@@ -65,21 +65,23 @@ public class ChatAndLinkRepositoryJpaIntegrationTests {
     @Transactional
     @Rollback
     public void cascadeDeleteChatAndLinkTest() {
-        jpaChatRepository.save(TEST_CHAt);
-        jpaLinkRepository.save(TEST_LINK);
-        jpaLinkRepository.save(TEST_LINK);
+        Link link1 = jpaLinkRepository.save(TEST_LINK);
+        Link link2 = jpaLinkRepository.save(TEST_LINK);
+        TEST_CHAT.setLinks(List.of(link1, link2));
+        jpaChatRepository.save(TEST_CHAT);
 
-        Optional<Chat> savingChat = jpaChatRepository.findById(TEST_CHAt.getId());
+        Optional<Chat> savingChat = jpaChatRepository.findById(TEST_CHAT.getId());
 
         assertTrue(savingChat.isPresent());
+        assertNotNull(savingChat.get().getLinks());
         assertEquals(savingChat.get().getLinks().size(), 2);
 
         jpaChatRepository.delete(savingChat.get());
 
-        savingChat = jpaChatRepository.findById(TEST_CHAt.getId());
+        savingChat = jpaChatRepository.findById(savingChat.get().getId());
         List<Link> links = jpaLinkRepository.findAll();
 
-        assertTrue(savingChat.isPresent());
+        assertFalse(savingChat.isPresent());
         assertTrue(links.isEmpty());
     }
 }

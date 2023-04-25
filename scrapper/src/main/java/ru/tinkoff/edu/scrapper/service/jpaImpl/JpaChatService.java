@@ -6,7 +6,7 @@ import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.service.ChatService;
 
-@Service
+
 @RequiredArgsConstructor
 public class JpaChatService implements ChatService {
 

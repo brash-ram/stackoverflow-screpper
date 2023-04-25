@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.scrapper.service.jpaImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaLinkRepository;
@@ -13,12 +12,12 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 @RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
     
     private final JpaLinkRepository jpaLinkRepository;
-    private final ChatService jpaChatService;
+    private final ChatService chatService;
 
     @Override
     public List<Link> getAllBefore(Timestamp borderTime) {
@@ -43,14 +42,14 @@ public class JpaLinkService implements LinkService {
     public Link add(long tgChatId, URI url) {
         return jpaLinkRepository.save(new Link()
                 .setUrl(url)
-                .setChat(jpaChatService.getByChatId(tgChatId))
+                .setChat(chatService.getByChatId(tgChatId))
                 .setLastUpdate(new Timestamp(System.currentTimeMillis()))
         );
     }
 
     @Override
     public Link remove(long tgChatId, URI url) {
-        Optional<Link> resultLink = jpaChatService.getByChatId(tgChatId).getLinks()
+        Optional<Link> resultLink = chatService.getByChatId(tgChatId).getLinks()
                 .stream()
                 .filter(link -> url.equals(link.getUrl()))
                 .findFirst();
@@ -65,7 +64,7 @@ public class JpaLinkService implements LinkService {
 
     @Override
     public List<Link> listAll(long tgChatId) {
-        Chat chat = jpaChatService.getByChatId(tgChatId);
+        Chat chat = chatService.getByChatId(tgChatId);
         if (!chat.getLinks().isEmpty()) {
             return chat.getLinks();
         } else {

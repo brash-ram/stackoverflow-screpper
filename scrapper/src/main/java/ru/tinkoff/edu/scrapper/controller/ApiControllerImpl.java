@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiControllerImpl implements ApiController {
 
-    private final LinkService jdbcLinkService;
-    private final ChatService jdbcChatService;
+    private final LinkService linkService;
+    private final ChatService chatService;
     private final DtoMapper dtoMapper;
 
     @Override
@@ -32,7 +32,7 @@ public class ApiControllerImpl implements ApiController {
     )
      public ResponseEntity<LinkResponse> linksDelete(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
                                                      @RequestBody RemoveLinkRequest removeLinkRequest) {
-        Link link = jdbcLinkService.remove(tgChatId, removeLinkRequest.link());
+        Link link = linkService.remove(tgChatId, removeLinkRequest.link());
         return ResponseEntity.ok(dtoMapper.convertLinkToLinkResponse(link));
     }
 
@@ -43,7 +43,7 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     ) 
     public ResponseEntity<ListLinksResponse> linksGet(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId) {
-        List<Link> links = jdbcLinkService.listAll(tgChatId);
+        List<Link> links = linkService.listAll(tgChatId);
         return ResponseEntity.ok(dtoMapper.convertListLinkToListLinkResponse(links));
     }
 
@@ -56,7 +56,7 @@ public class ApiControllerImpl implements ApiController {
     )
     public ResponseEntity<LinkResponse> linksPost(@NotNull @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
                                                   @RequestBody AddLinkRequest addLinkRequest) {
-        Link link = jdbcLinkService.add(tgChatId, addLinkRequest.link());
+        Link link = linkService.add(tgChatId, addLinkRequest.link());
         return ResponseEntity.ok(dtoMapper.convertLinkToLinkResponse(link));
     }
 
@@ -67,7 +67,7 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     )
     public ResponseEntity<Void> tgChatIdDelete(@PathVariable Long id) {
-        jdbcChatService.unregister(id);
+        chatService.unregister(id);
         return ResponseEntity.ok().build();
     }
 
@@ -78,7 +78,7 @@ public class ApiControllerImpl implements ApiController {
             produces = { "application/json" }
     )
     public ResponseEntity<Void> tgChatIdPost(@PathVariable("id") Long id) {
-        jdbcChatService.register(id);
+        chatService.register(id);
         return ResponseEntity.ok().build();
     }
 }
