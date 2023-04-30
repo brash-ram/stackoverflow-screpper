@@ -27,7 +27,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    Queue deadLetterQueue() {
+    public Queue deadLetterQueue() {
         return QueueBuilder.durable(rabbitMQConfig.queue() + ".dlq").build();
     }
 
@@ -37,7 +37,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    FanoutExchange deadLetterExchange() {
+    public FanoutExchange deadLetterExchange() {
         return new FanoutExchange(rabbitMQConfig.exchange() + ".dlx");
     }
 
@@ -47,7 +47,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    Binding deadLetterBinding(FanoutExchange deadLetterExchange, Queue deadLetterQueue) {
+    public Binding deadLetterBinding(FanoutExchange deadLetterExchange, Queue deadLetterQueue) {
         return BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange);
     }
 
