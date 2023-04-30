@@ -13,8 +13,8 @@ services:
             POSTGRES_USER: "postgres"
             POSTGRES_PASSWORD: "qwerty"
         volumes:
-            - ../2. Init Database:/docker-entrypoint-initdb.d
-            - ./postgres-data:/var/lib/postgresql/data
+            - ./volumes/2. Init Database:/docker-entrypoint-initdb.d
+            - ./volumes/postgres-data:/var/lib/postgresql/data
         ports:
             - "5434:5432"
         networks:
@@ -42,5 +42,20 @@ services:
             - update
         volumes:
             - ./migrations:/liquibase/changelog
+        networks:
+            - backend
+    rabbitmq:
+        image: rabbitmq:3-management
+        hostname: rabbitmq
+        restart: always
+        environment:
+            - RABBITMQ_DEFAULT_USER=user
+            - RABBITMQ_DEFAULT_PASS=qwerty
+        volumes:
+            - ./volumes/rabbitmq:/var/lib/rabbitmq
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+
         networks:
             - backend
