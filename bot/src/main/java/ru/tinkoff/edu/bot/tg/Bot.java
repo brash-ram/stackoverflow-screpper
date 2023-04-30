@@ -17,7 +17,6 @@ import java.io.IOException;
 public class Bot {
 
     private final TelegramBot telegramBot;
-    private final ApplicationContext applicationContext;
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void send(T request) {
         telegramBot.execute(request, new Callback<T, R>() {

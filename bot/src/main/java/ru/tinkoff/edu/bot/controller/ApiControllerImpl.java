@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.edu.bot.dto.LinkUpdate;
 import ru.tinkoff.edu.bot.tg.Bot;
+import ru.tinkoff.edu.bot.tg.BotMessageSender;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 @RestController
 @RequiredArgsConstructor
 public class ApiControllerImpl implements ApiController {
 
-    private final Bot bot;
+    private final BotMessageSender botMessageSender;
 
     @Override
     @RequestMapping(
@@ -24,7 +25,7 @@ public class ApiControllerImpl implements ApiController {
             consumes = { "application/json" }
     )
     public ResponseEntity<Void> updatesPost(@RequestBody LinkUpdate linkUpdate) {
-        bot.send(new SendMessageAdapter(linkUpdate.tgChatIds().get(0), linkUpdate.description()).getSendMessage());
+        botMessageSender.sendMessage(linkUpdate);
         return ResponseEntity.ok().build();
     }
 }

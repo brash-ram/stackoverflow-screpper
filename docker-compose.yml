@@ -46,7 +46,6 @@ services:
             - backend
     rabbitmq:
         image: rabbitmq:3-management
-        hostname: rabbitmq
         restart: always
         environment:
             - RABBITMQ_DEFAULT_USER=user

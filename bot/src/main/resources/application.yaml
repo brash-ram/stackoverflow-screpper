@@ -2,6 +2,10 @@ app:
     test: value
     token: ${BOT_TOKEN}
 
+rabbit:
+    queue: scrapper-queue
+    exchange: scrapper-exchange
+
 baseUrl:
     scrapper: http://localhost:8081
 
@@ -10,3 +14,10 @@ default:
 
 server:
     port: 8080
+
+spring:
+    rabbitmq:
+        host: localhost
+        username: user
+        password: qwerty
+        port: 5672
