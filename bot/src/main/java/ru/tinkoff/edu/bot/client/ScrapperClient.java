@@ -3,24 +3,16 @@ package ru.tinkoff.edu.bot.client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
-import ru.tinkoff.edu.bot.dto.ApiErrorResponse;
 import ru.tinkoff.edu.bot.dto.scrapper.request.AddLinkRequest;
 import ru.tinkoff.edu.bot.dto.scrapper.request.RemoveLinkRequest;
 import ru.tinkoff.edu.bot.dto.scrapper.response.LinkResponse;
 import ru.tinkoff.edu.bot.dto.scrapper.response.ListLinksResponse;
 
-import java.net.URI;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -38,7 +30,7 @@ public class ScrapperClient {
 
     public Optional<LinkResponse> addLink(AddLinkRequest addLinkRequest, Long id) {
         return scrapperWebClient.post()
-                .uri("/links")
+                .uri(scrapperUrl + "/links")
                 .header("Tg-Chat-Id", id.toString())
                 .body(BodyInserters.fromValue(addLinkRequest))
                 .retrieve()
@@ -53,7 +45,7 @@ public class ScrapperClient {
 
     public Optional<LinkResponse> deleteLink(RemoveLinkRequest removeLinkRequest, Long id) {
         return scrapperWebClient.post()
-                .uri("/links")
+                .uri(scrapperUrl + "/links/delete")
                 .header("Tg-Chat-Id", id.toString())
                 .body(BodyInserters.fromValue(removeLinkRequest))
                 .retrieve()
@@ -68,7 +60,7 @@ public class ScrapperClient {
 
     public Optional<ListLinksResponse> getLinks(Long id) {
         return scrapperWebClient.get()
-                .uri("/links")
+                .uri(scrapperUrl + "/links")
                 .header("Tg-Chat-Id", id.toString())
                 .retrieve()
                 .bodyToMono(ListLinksResponse.class)
@@ -82,7 +74,7 @@ public class ScrapperClient {
 
     public Optional<String> addChat(Long id) {
         return scrapperWebClient.post()
-                .uri("/tg-chat/" + id.toString())
+                .uri(scrapperUrl + "/tg-chat/" + id.toString())
                 .retrieve()
                 .bodyToMono(String.class)
                 .timeout(Duration.ofSeconds(defaultTimeout))
@@ -95,7 +87,7 @@ public class ScrapperClient {
 
     public Optional<String> deleteChat(Long id) {
         return scrapperWebClient.delete()
-                .uri("/tg-chat/" + id.toString())
+                .uri(scrapperUrl + "/tg-chat/" + id.toString())
                 .retrieve()
                 .bodyToMono(String.class)
                 .timeout(Duration.ofSeconds(defaultTimeout))

@@ -12,6 +12,8 @@ import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,17 +30,45 @@ public class UntrackCommandHandler extends MessageHandler{
     @Override
     public void handleMessage(Update update) {
         Message message = update.message();
-        if (message.text().equals("/untrack")) {
-            try {
-                Optional<LinkResponse> response = scrapperClient.deleteLink(new RemoveLinkRequest(new URI("http://localhost")), 1L);
-                response.ifPresent(linkResponse -> log.info(linkResponse.toString()));
-            } catch (Exception e) {
-                e.printStackTrace();
+        List<String> stringUri = new ArrayList<>(List.of(message.text().split(" ")));
+        String allowedMessage = stringUri.remove(0);
+        if (allowedMessage.equals("/untrack")) {
+            if (stringUri.size() == 0) {
+                String messageForGetLink = "Чтобы удалить ссылку отправьте команду /untrack с нужными ссылками, " +
+                        "разделенными пробелами.";
+                bot.send(new SendMessageAdapter(message.chat().id(), messageForGetLink)
+                        .getSendMessage());
+            } else {
+                List<URI> urls = parseUris(stringUri);
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("Удалено %d из %d ссылок", urls.size(), stringUri.size()))
+                        .append("\n");
+                if (urls.size() != 0) {
+                    sb.append("Удалены следующие ссылки:\n");
+                    for (URI uri : urls) {
+                        Optional<LinkResponse> response = scrapperClient.deleteLink(new RemoveLinkRequest(uri), message.chat().id());
+                        response.ifPresent(linkResponse -> sb.append(linkResponse.url().toString()));
+                    }
+                }
+                bot.send(new SendMessageAdapter(message.chat().id(), sb.toString())
+                        .getSendMessage());
             }
-            bot.send(new SendMessageAdapter(message.chat().id(), DEFAULT_MASSAGE + "untrack")
-                    .getSendMessage());
         } else {
             nextHandler.handleMessage(update);
         }
+    }
+
+    public List<URI> parseUris(List<String> stringUris) {
+        List<URI> uris = new ArrayList<>();
+        for (String s : stringUris) {
+            try {
+
+                uris.add(new URI(s));
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+        return uris;
     }
 }

@@ -1,15 +1,15 @@
 package ru.tinkoff.edu.service.parser;
 
+import ru.tinkoff.edu.enums.Site;
 import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataStackOverflow;
-import ru.tinkoff.edu.enums.Site;
 
-import java.net.URL;
+import java.net.URI;
 
 final class LinkParserStackOverflow extends LinkParser {
 
     @Override
-    public LinkData parseUrl(URL url) {
+    public LinkData parseUrl(URI url) {
         if (url.getHost().equals(Site.STACK_OVERFLOW.getHost())) {
             String[] stackOverflowPath = url.getPath().replaceFirst("/", "").split("/");
             String QUESTIONS_PATH = "questions";

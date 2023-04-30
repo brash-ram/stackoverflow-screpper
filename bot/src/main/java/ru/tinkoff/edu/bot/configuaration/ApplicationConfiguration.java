@@ -4,9 +4,13 @@ import com.pengrad.telegrambot.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import ru.tinkoff.edu.service.LinkParseService;
+import ru.tinkoff.edu.service.parser.ParserConfiguration;
 
 @Configuration
 @RequiredArgsConstructor
+@Import({LinkParseService.class, ParserConfiguration.class})
 public class ApplicationConfiguration {
 
     private final ApplicationConfig config;

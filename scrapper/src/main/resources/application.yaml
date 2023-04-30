@@ -1,11 +1,19 @@
 app:
     test: test
     scheduler:
-        interval: 10000
+        interval: 60000
+    database-access-type: jpa
+
+scheduler:
+    linkUpdate: 60000
+api:
+    github:
+        token: ${GITHUB_TOKEN}
 
 baseUrl:
     github: https://api.github.com
     stackOverflow: https://api.stackexchange.com/2.3
+    bot: http://localhost:8080
 
 default:
     timeout: 30
@@ -15,3 +23,25 @@ springdoc:
         path: /swagger-ui.html
 server:
     port: 8081
+
+spring:
+    jpa:
+        defer-datasource-initialization: false
+        properties:
+            hibernate:
+                format_sql: true
+                generate_statistics: true
+                jdbc:
+                    batch_size: 50
+                    fetch_size: 50
+                order_updates: true
+                order_insert: true
+        open-in-view: true
+        show-sql: true
+        hibernate:
+            ddl-auto: none
+    datasource:
+        url: jdbc:postgresql://localhost:5434/scrapper
+        username: postgres
+        password: qwerty
+        driver-class-name: org.postgresql.Driver

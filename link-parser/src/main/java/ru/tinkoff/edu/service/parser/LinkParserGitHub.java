@@ -4,12 +4,12 @@ import ru.tinkoff.edu.dto.LinkData;
 import ru.tinkoff.edu.dto.LinkDataGithub;
 import ru.tinkoff.edu.enums.Site;
 
-import java.net.URL;
+import java.net.URI;
 
 final class LinkParserGitHub extends LinkParser{
 
     @Override
-    public LinkData parseUrl(URL url) {
+    public LinkData parseUrl(URI url) {
         if (url.getHost().equals(Site.GITHUB.getHost())) {
             String[] githubPath = url.getPath().replaceFirst("/", "").split("/");
             if (githubPath.length == 2) {
