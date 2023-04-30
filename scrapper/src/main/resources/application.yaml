@@ -3,6 +3,7 @@ app:
     scheduler:
         interval: 60000
     database-access-type: jpa
+    useQueue: true
 
 rabbit:
     queue: scrapper

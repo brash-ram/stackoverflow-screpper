@@ -19,9 +19,10 @@ import java.util.List;
 public class LinkUpdaterScheduler {
 
     private final ApiService apiService;
-    private final BotClient botClient;
     private final LinkService linkService;
     private final LinkParseService linkParseService;
+
+    private final LinkUpdateService linkUpdateService;
 
     @Value("${scheduler.linkUpdate}")
     private Integer timeLinkUpdate;
@@ -39,7 +40,7 @@ public class LinkUpdaterScheduler {
             LinkData linkData = linkParseService.parseLink(link.getUrl());
             if (linkData != null) {
                 String description = apiService.checkUpdate(linkData);
-                sendLinkUpdateMessage(new LinkUpdateRequest(
+                linkUpdateService.sendLinkUpdate(new LinkUpdateRequest(
                         link.getId(),
                         link.getUrl(),
                         description,
@@ -48,9 +49,5 @@ public class LinkUpdaterScheduler {
                 linkService.updateTimeUpdate(link.getId(), new Timestamp(System.currentTimeMillis()));
             }
         }
-    }
-
-    private void sendLinkUpdateMessage(LinkUpdateRequest request) {
-        botClient.updateLink(request);
     }
 }
