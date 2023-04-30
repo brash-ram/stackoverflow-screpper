@@ -4,6 +4,10 @@ app:
         interval: 60000
     database-access-type: jpa
 
+rabbit:
+    queue: scrapper
+
+
 scheduler:
     linkUpdate: 60000
 api:
