@@ -16,17 +16,17 @@ public class RabbitMQConfiguration {
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(rabbitMQConfig.queue())
-                .withArgument("x-dead-letter-exchange", rabbitMQConfig.exchange() + ".dlx")
+                .withArgument("x-dead-letter-exchange", rabbitMQConfig.queue() + ".dlx")
                 .build();
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(rabbitMQConfig.exchange());
+    public DirectExchange exchange() {
+        return new DirectExchange(rabbitMQConfig.exchange());
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(rabbitMQConfig.queue());
     }
 

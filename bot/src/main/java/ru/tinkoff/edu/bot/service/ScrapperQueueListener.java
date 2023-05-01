@@ -16,7 +16,6 @@ public class ScrapperQueueListener {
 
     @RabbitHandler
     public void receiver(LinkUpdate update) {
-        System.out.println(update.toString());
         botMessageSender.sendMessage(update);
     }
 }

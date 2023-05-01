@@ -21,3 +21,6 @@ spring:
         username: user
         password: qwerty
         port: 5672
+        listener:
+            simple:
+                default-requeue-rejected: false

@@ -22,7 +22,7 @@ public class RabbitMQConfiguration {
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(rabbitMQConfig.queue())
-                .withArgument("x-dead-letter-exchange", rabbitMQConfig.exchange() + ".dlx")
+                .withArgument("x-dead-letter-exchange", rabbitMQConfig.queue() + ".dlx")
                 .build();
     }
 
@@ -32,22 +32,22 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(rabbitMQConfig.exchange());
+    public DirectExchange exchange() {
+        return new DirectExchange(rabbitMQConfig.exchange());
     }
 
     @Bean
     public FanoutExchange deadLetterExchange() {
-        return new FanoutExchange(rabbitMQConfig.exchange() + ".dlx");
+        return new FanoutExchange(rabbitMQConfig.queue() + ".dlx");
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(rabbitMQConfig.queue());
     }
 
     @Bean
-    public Binding deadLetterBinding(FanoutExchange deadLetterExchange, Queue deadLetterQueue) {
+    public Binding deadLetterBinding(Queue deadLetterQueue, FanoutExchange deadLetterExchange) {
         return BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange);
     }
 
