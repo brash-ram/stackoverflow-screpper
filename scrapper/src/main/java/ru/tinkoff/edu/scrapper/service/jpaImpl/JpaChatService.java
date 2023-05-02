@@ -6,6 +6,8 @@ import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.service.ChatService;
 
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 public class JpaChatService implements ChatService {
@@ -26,7 +28,10 @@ public class JpaChatService implements ChatService {
 
     @Override
     public Chat getById(long id) {
-        return jpaChatRepository.findById(id).get();
+        Chat chat = null;
+        Optional<Chat> optionalChat = jpaChatRepository.findById(id);
+        if (optionalChat.isPresent()) chat = optionalChat.get();
+        return chat;
     }
 
     @Override
