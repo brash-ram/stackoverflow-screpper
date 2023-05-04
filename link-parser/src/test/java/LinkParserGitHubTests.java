@@ -3,12 +3,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.tinkoff.edu.dto.LinkData;
-import ru.tinkoff.edu.dto.LinkDataGithub;
-import ru.tinkoff.edu.dto.LinkDataStackOverflow;
-import ru.tinkoff.edu.enums.Site;
-import ru.tinkoff.edu.service.LinkParseService;
-import ru.tinkoff.edu.service.parser.ParserConfiguration;
+import ru.tinkoff.edu.linkParser.dto.LinkData;
+import ru.tinkoff.edu.linkParser.dto.LinkDataGithub;
+import ru.tinkoff.edu.linkParser.dto.LinkDataStackOverflow;
+import ru.tinkoff.edu.linkParser.enums.Site;
+import ru.tinkoff.edu.linkParser.service.LinkParseService;
+import ru.tinkoff.edu.linkParser.service.parser.ParserConfiguration;
 
 import java.net.URI;
 import java.net.URISyntaxException;

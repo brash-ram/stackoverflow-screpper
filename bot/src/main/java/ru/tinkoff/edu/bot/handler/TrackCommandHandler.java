@@ -10,7 +10,7 @@ import ru.tinkoff.edu.bot.dto.scrapper.request.AddLinkRequest;
 import ru.tinkoff.edu.bot.dto.scrapper.response.LinkResponse;
 import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
-import ru.tinkoff.edu.service.LinkParseService;
+import ru.tinkoff.edu.linkParser.service.LinkParseService;
 
 import java.net.URI;
 import java.util.ArrayList;

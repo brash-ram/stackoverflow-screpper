@@ -1,7 +1,7 @@
-package ru.tinkoff.edu.service.parser;
+package ru.tinkoff.edu.linkParser.service.parser;
 
 import lombok.Setter;
-import ru.tinkoff.edu.dto.LinkData;
+import ru.tinkoff.edu.linkParser.dto.LinkData;
 
 import java.net.URI;
 

@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.scrapper.service.jpaImpl;
 
 import lombok.RequiredArgsConstructor;
-import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.scrapper.service.ChatService;

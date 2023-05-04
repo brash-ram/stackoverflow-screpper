@@ -1,8 +1,8 @@
-package ru.tinkoff.edu.service.parser;
+package ru.tinkoff.edu.linkParser.service.parser;
 
-import ru.tinkoff.edu.enums.Site;
-import ru.tinkoff.edu.dto.LinkData;
-import ru.tinkoff.edu.dto.LinkDataStackOverflow;
+import ru.tinkoff.edu.linkParser.dto.LinkData;
+import ru.tinkoff.edu.linkParser.dto.LinkDataStackOverflow;
+import ru.tinkoff.edu.linkParser.enums.Site;
 
 import java.net.URI;
 

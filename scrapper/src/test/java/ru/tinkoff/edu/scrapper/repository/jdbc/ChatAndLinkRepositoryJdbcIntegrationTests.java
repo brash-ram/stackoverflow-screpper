@@ -20,7 +20,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(classes = {
         IntegrationEnvironment.IntegrationEnvironmentConfiguration.class,

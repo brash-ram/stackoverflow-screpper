@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import ru.tinkoff.edu.LinkParserApplication;
-import ru.tinkoff.edu.service.LinkParseService;
-import ru.tinkoff.edu.service.parser.ParserConfiguration;
+import ru.tinkoff.edu.linkParser.service.LinkParseService;
+import ru.tinkoff.edu.linkParser.service.parser.ParserConfiguration;
 
 import javax.sql.DataSource;
 

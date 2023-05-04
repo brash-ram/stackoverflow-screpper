@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.scrapper.data.respository;
 
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 
 import java.sql.Timestamp;

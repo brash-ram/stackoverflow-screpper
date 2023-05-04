@@ -4,7 +4,6 @@ import ru.tinkoff.edu.scrapper.data.entity.Link;
 
 import java.net.URI;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.List;
 
 public interface LinkService {
