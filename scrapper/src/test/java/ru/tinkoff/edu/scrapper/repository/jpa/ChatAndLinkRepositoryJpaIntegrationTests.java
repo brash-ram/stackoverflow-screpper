@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -36,6 +37,13 @@ public class ChatAndLinkRepositoryJpaIntegrationTests {
 
     @Autowired
     private JpaLinkRepository jpaLinkRepository;
+
+
+    @BeforeEach
+    public void clearTable() {
+        jpaChatRepository.deleteAll();
+        jpaLinkRepository.deleteAll();
+    }
 
     @BeforeAll
     public static void setTestData() throws URISyntaxException {

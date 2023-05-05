@@ -1,10 +1,14 @@
 package ru.tinkoff.edu.scrapper.repository.jdbc;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
@@ -14,8 +18,11 @@ import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-@SpringBootTest(classes = {IntegrationEnvironment.IntegrationEnvironmentConfiguration.class, ChatRepositoryJdbcImpl.class})
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = {
+        IntegrationEnvironment.IntegrationEnvironmentConfiguration.class,
+        ChatRepositoryJdbcImpl.class
+})
 public class ChatRepositoryJdbcImplTests {
     
     private static Chat TEST_CHAt;
@@ -27,6 +34,30 @@ public class ChatRepositoryJdbcImplTests {
     public static void setTestChat() {
         TEST_CHAt = new Chat()
                 .setChatId(1L);
+    }
+
+    @BeforeEach
+    public void clearDb() {
+        try {
+            chatRepositoryJdbcImpl.remove(1L);
+        } catch (Exception ignored) {
+        }
+        try {
+            chatRepositoryJdbcImpl.remove(2L);
+        } catch (Exception ignored) {
+        }
+        try {
+            chatRepositoryJdbcImpl.remove(3L);
+        } catch (Exception ignored) {
+        }
+        try {
+            chatRepositoryJdbcImpl.remove(4L);
+        } catch (Exception ignored) {
+        }
+        try {
+            chatRepositoryJdbcImpl.remove(5L);
+        } catch (Exception ignored) {
+        }
     }
 
     @Test
@@ -64,7 +95,7 @@ public class ChatRepositoryJdbcImplTests {
     public void removeTest() {
         Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAt);
         chatRepositoryJdbcImpl.remove(chat.getId());
-        assertEquals(chatRepositoryJdbcImpl.findAll().size(), 0);
+        assertEquals(0, chatRepositoryJdbcImpl.findAll().size());
     }
 
     @Test
@@ -74,6 +105,6 @@ public class ChatRepositoryJdbcImplTests {
         chatRepositoryJdbcImpl.save(TEST_CHAt);
         chatRepositoryJdbcImpl.save(TEST_CHAt);
 
-        assertEquals(chatRepositoryJdbcImpl.findAll().size(), 2);
+        assertEquals(2, chatRepositoryJdbcImpl.findAll().size());
     }
 }

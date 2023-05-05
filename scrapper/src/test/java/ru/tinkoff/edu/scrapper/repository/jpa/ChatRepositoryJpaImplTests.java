@@ -1,6 +1,8 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -32,6 +34,11 @@ public class ChatRepositoryJpaImplTests {
     public static void setTestChat() {
         TEST_CHAT = new Chat()
                 .setChatId(1L);
+    }
+
+    @BeforeEach
+    public void clearTable() {
+        jpaChatRepository.deleteAll();
     }
 
     @Test
@@ -68,9 +75,9 @@ public class ChatRepositoryJpaImplTests {
     @Rollback
     public void removeTest() {
         Chat chat = jpaChatRepository.save(TEST_CHAT);
-        jpaChatRepository.count();
-//        jpaChatRepository.delete(chat);
         assertEquals(jpaChatRepository.count(), 1);
+        jpaChatRepository.delete(chat);
+        assertEquals(jpaChatRepository.count(), 0);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
+import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
+import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 import ru.tinkoff.edu.scrapper.service.ChatService;
 
@@ -22,14 +25,22 @@ public class JpaChatServiceTests {
 
     private static Chat TEST_CHAT;
 
+    @Autowired
+    private ChatService jpaChatService;
+
+    @Autowired
+    private JpaChatRepository jpaChatRepository;
+
     @BeforeEach
     public void setTestChat() {
         TEST_CHAT = new Chat()
                 .setChatId(1L);
     }
 
-    @Autowired
-    private ChatService jpaChatService;
+    @AfterEach
+    public void clearDb() {
+        jpaChatRepository.deleteAll();
+    }
 
     @Test
     @Transactional
