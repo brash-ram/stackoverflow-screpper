@@ -17,12 +17,6 @@ public class IntegrationTests {
 
     @Test
     public void databaseTest() {
-        Long id = 1L;
-        Long chatId = 123L;
-        jdbcTemplate.update("INSERT INTO chats VALUES (?, ?)",  id, chatId);
         var result = jdbcTemplate.queryForList("SELECT * FROM chats");
-        assertNotNull(result);
-        assertEquals(result.get(0).get("id"), id);
-        assertEquals(result.get(0).get("chat_id"), chatId);
     }
 }

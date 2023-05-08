@@ -40,30 +40,6 @@ public class ChatAndLinkRepositoryJdbcIntegrationTests {
     @Autowired
     private LinkRepository linkRepository;
 
-    @BeforeEach
-    public void clearDb() {
-        try {
-            chatRepositoryJdbcImpl.remove(1L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(2L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(3L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(4L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(5L);
-        } catch (Exception ignored) {
-        }
-    }
-
     @BeforeAll
     public static void setTestData() throws URISyntaxException {
         TEST_CHAt = new Chat()

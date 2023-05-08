@@ -37,11 +37,6 @@ public class JpaChatServiceTests {
                 .setChatId(1L);
     }
 
-    @AfterEach
-    public void clearDb() {
-        jpaChatRepository.deleteAll();
-    }
-
     @Test
     @Transactional
     @Rollback

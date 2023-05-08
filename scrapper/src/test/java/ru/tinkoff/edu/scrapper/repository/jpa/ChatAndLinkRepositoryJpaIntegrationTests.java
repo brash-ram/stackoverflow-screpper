@@ -39,12 +39,6 @@ public class ChatAndLinkRepositoryJpaIntegrationTests {
     private JpaLinkRepository jpaLinkRepository;
 
 
-    @BeforeEach
-    public void clearTable() {
-        jpaChatRepository.deleteAll();
-        jpaLinkRepository.deleteAll();
-    }
-
     @BeforeAll
     public static void setTestData() throws URISyntaxException {
         TEST_CHAT = new Chat()

@@ -36,30 +36,6 @@ public class ChatRepositoryJdbcImplTests {
                 .setChatId(1L);
     }
 
-    @BeforeEach
-    public void clearDb() {
-        try {
-            chatRepositoryJdbcImpl.remove(1L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(2L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(3L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(4L);
-        } catch (Exception ignored) {
-        }
-        try {
-            chatRepositoryJdbcImpl.remove(5L);
-        } catch (Exception ignored) {
-        }
-    }
-
     @Test
     @Transactional
     @Rollback

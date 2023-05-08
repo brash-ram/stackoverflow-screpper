@@ -1,20 +1,16 @@
-# AS <NAME> to name this stage as maven
-FROM maven:3.8.7 AS maven
-#LABEL MAINTAINER="sgwebfreelancer@gmail.com"
-
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-# Compile and package the application to an executable JAR
-RUN mvn package
-
-# For Java 11,
-FROM openjdk:17
-
-#ARG JAR_FILE="questionnaire-1.jar"
+# cache as most as possible in this multistage dockerfile.
+FROM maven:3.6-alpine as BUILDER
 
 WORKDIR /opt/app
 
-# Copy the spring-boot-api-tutorial.jar from the maven stage to the /opt/app directory of the current stage.
-COPY --from=maven /usr/src/app/target/*.jar /opt/app/app.jar
+COPY scrapper ./scrapper
+COPY link-parser ./link-parser
+COPY bot ./bot
+COPY pom.xml .
 
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN mvn package -pl scrapper -am
+
+FROM openjdk:17-alpine
+WORKDIR /opt/app
+COPY --from=builder /opt/app/scrapper/target/*.jar ./app.jar
+CMD [ "java", "-jar", "/opt/app/app.jar" ]
