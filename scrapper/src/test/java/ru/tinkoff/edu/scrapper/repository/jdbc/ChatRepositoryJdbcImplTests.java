@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.scrapper.repository.jdbc;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,17 +13,16 @@ import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
 import ru.tinkoff.edu.scrapper.data.respository.jdbcImpl.ChatRepositoryJdbcImpl;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {
         IntegrationEnvironment.IntegrationEnvironmentConfiguration.class,
         ChatRepositoryJdbcImpl.class
 })
 public class ChatRepositoryJdbcImplTests {
-    
+
     private static Chat TEST_CHAT;
 
     @Autowired

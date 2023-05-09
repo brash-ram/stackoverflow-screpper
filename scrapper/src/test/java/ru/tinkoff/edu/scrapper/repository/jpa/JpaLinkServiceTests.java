@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +17,6 @@ import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 import ru.tinkoff.edu.scrapper.service.ChatService;
 import ru.tinkoff.edu.scrapper.service.LinkService;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Timestamp;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -26,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JpaLinkServiceTests {
-    
+
     @Autowired
     private LinkService jpaLinkService;
 

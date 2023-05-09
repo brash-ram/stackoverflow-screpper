@@ -6,9 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @SpringBootTest(classes = {IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})
 public class IntegrationTests {
 

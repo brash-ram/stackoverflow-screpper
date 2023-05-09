@@ -1,7 +1,11 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -15,14 +19,10 @@ import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest(excludeAutoConfiguration = LiquibaseAutoConfiguration.class)
 @Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)

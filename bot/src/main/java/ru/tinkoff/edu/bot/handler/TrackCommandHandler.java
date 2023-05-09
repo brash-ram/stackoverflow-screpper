@@ -2,6 +2,10 @@ package ru.tinkoff.edu.bot.handler;
 
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -11,11 +15,6 @@ import ru.tinkoff.edu.bot.dto.scrapper.response.LinkResponse;
 import ru.tinkoff.edu.bot.tg.Bot;
 import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 import ru.tinkoff.edu.linkParser.service.LinkParseService;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Component
 @ComponentScan("ru.tinkoff.edu.linkParser.service")

@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Timestamp;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

@@ -1,8 +1,8 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
-import org.junit.jupiter.api.AfterEach;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -14,17 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest(excludeAutoConfiguration = LiquibaseAutoConfiguration.class)
 @Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ChatRepositoryJpaImplTests {
-    
+
     private static Chat TEST_CHAT;
 
     @Autowired

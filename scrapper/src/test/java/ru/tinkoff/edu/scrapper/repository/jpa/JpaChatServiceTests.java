@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.scrapper.repository.jpa;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Chat;
-import ru.tinkoff.edu.scrapper.data.respository.ChatRepository;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.scrapper.environment.IntegrationEnvironment;
 import ru.tinkoff.edu.scrapper.service.ChatService;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest(excludeAutoConfiguration = LiquibaseAutoConfiguration.class)
 @Import(IntegrationEnvironment.JpaIntegrationEnvironmentConfiguration.class)

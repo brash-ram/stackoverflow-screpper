@@ -1,10 +1,9 @@
 package ru.tinkoff.edu.linkParser.service.parser;
 
+import java.net.URI;
 import ru.tinkoff.edu.linkParser.dto.LinkData;
 import ru.tinkoff.edu.linkParser.dto.LinkDataGithub;
 import ru.tinkoff.edu.linkParser.enums.Site;
-
-import java.net.URI;
 
 final class LinkParserGitHub extends LinkParser{
 

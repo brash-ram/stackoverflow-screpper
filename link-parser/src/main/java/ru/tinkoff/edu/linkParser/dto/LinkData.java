@@ -1,11 +1,10 @@
 package ru.tinkoff.edu.linkParser.dto;
 
+import java.net.URI;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.tinkoff.edu.linkParser.enums.Site;
-
-import java.net.URI;
 
 @AllArgsConstructor
 @NoArgsConstructor

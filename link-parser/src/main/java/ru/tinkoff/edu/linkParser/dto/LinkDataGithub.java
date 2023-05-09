@@ -1,9 +1,8 @@
 package ru.tinkoff.edu.linkParser.dto;
 
+import java.net.URI;
 import lombok.Data;
 import ru.tinkoff.edu.linkParser.enums.Site;
-
-import java.net.URI;
 
 @Data
 public final class LinkDataGithub extends LinkData{

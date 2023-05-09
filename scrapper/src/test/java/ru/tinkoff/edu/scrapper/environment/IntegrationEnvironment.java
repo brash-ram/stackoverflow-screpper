@@ -1,5 +1,10 @@
 package ru.tinkoff.edu.scrapper.environment;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import javax.sql.DataSource;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
@@ -24,12 +29,6 @@ import ru.tinkoff.edu.scrapper.service.ChatService;
 import ru.tinkoff.edu.scrapper.service.LinkService;
 import ru.tinkoff.edu.scrapper.service.jpaImpl.JpaChatService;
 import ru.tinkoff.edu.scrapper.service.jpaImpl.JpaLinkService;
-
-import javax.sql.DataSource;
-import java.io.File;
-import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 @ContextConfiguration(classes = IntegrationEnvironment.IntegrationEnvironmentConfiguration.class)
 public abstract class IntegrationEnvironment {

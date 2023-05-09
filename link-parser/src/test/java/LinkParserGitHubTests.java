@@ -1,3 +1,5 @@
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,6 @@ import ru.tinkoff.edu.linkParser.dto.LinkDataStackOverflow;
 import ru.tinkoff.edu.linkParser.enums.Site;
 import ru.tinkoff.edu.linkParser.service.LinkParseService;
 import ru.tinkoff.edu.linkParser.service.parser.ParserConfiguration;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
