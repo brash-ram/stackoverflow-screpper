@@ -50,7 +50,7 @@ jobs:
                     distribution: 'temurin'
                     cache: maven
 
-            -   name: Prepare
+            -   name: Prepare checkstyle
                 run: mvn clean install
 
             -   name: Run Checkstyle
