@@ -30,6 +30,7 @@ public class JpaLinkService implements LinkService {
     }
 
     @Override
+    @Transactional
     public void updateTimeUpdate(Long linkId, Timestamp timeUpdate) {
         jpaLinkRepository.save(
                 jpaLinkRepository.findById(linkId)
