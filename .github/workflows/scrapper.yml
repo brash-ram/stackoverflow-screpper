@@ -8,6 +8,7 @@ on:
 env:
     REGISTRY: ghcr.io
     IMAGE_NAME: scrapper_app
+    AUTHOR: brash-ram
 
 jobs:
     build:
@@ -29,14 +30,14 @@ jobs:
                 uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
                 with:
                     registry: ${{ env.REGISTRY }}
-                    username: ${{ github.actor }}
+                    username: ${{ env.AUTHOR }}
                     password: ${{ secrets.GIT_TOKEN }}
 
             -   name: Build Docker image
-                run: docker build -f ./scrapper/Dockerfile -t ${{ env.REGISTRY}}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest .
+                run: docker build -f ./scrapper/Dockerfile -t ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest .
 
             -   name: Push Docker image
-                run: docker push ${{ env.REGISTRY}}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
+                run: docker push ${{ env.REGISTRY}}/${{ env.AUTHOR }}/${{ env.IMAGE_NAME }}:latest
     checkstyle:
         runs-on: ubuntu-latest
         steps:
