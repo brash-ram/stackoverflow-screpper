@@ -50,5 +50,8 @@ jobs:
                     distribution: 'temurin'
                     cache: maven
 
+            - name: Prepare
+                run: mvn clean install
+
             -   name: Run Checkstyle
                 run: mvn -pl scrapper -am checkstyle:check

@@ -107,13 +107,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>groupId</groupId>
-                        <artifactId>link-parser</artifactId>
-                        <version>Deactivate</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
