@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationPropertiesScan
 @ComponentScan("ru.tinkoff.edu")
 public class BotApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(BotApplication.class, args);
     }

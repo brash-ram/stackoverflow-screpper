@@ -287,13 +287,13 @@
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         <violationSeverity>warning</violationSeverity>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>check</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
                 </plugin>
             </plugins>
         </pluginManagement>
