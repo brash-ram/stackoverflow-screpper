@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-//@EnableConfigurationProperties(ApplicationConfig.class)
 @ConfigurationPropertiesScan
 @ComponentScan("ru.tinkoff.edu")
 public class BotApplication {

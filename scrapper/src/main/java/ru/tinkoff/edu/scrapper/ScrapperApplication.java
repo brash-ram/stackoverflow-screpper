@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication()
-//@EnableConfigurationProperties({ApplicationConfig.class})
 @ConfigurationPropertiesScan
 @EnableScheduling
 public class ScrapperApplication {
