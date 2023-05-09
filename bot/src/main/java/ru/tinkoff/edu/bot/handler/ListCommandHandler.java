@@ -13,7 +13,7 @@ import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 @Component
 @Slf4j
-public class ListCommandHandler extends MessageHandler{
+public class ListCommandHandler extends MessageHandler {
     private final ScrapperClient scrapperClient;
 
     public ListCommandHandler(Bot bot, ScrapperClient scrapperClient) {

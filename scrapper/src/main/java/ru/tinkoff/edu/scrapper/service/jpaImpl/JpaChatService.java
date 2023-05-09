@@ -28,7 +28,9 @@ public class JpaChatService implements ChatService {
     public Chat getById(long id) {
         Chat chat = null;
         Optional<Chat> optionalChat = jpaChatRepository.findById(id);
-        if (optionalChat.isPresent()) chat = optionalChat.get();
+        if (optionalChat.isPresent()) {
+            chat = optionalChat.get();
+        }
         return chat;
     }
 

@@ -19,7 +19,7 @@ import ru.tinkoff.edu.linkParser.service.LinkParseService;
 @Component
 @ComponentScan("ru.tinkoff.edu.linkParser.service")
 @Slf4j
-public class TrackCommandHandler extends MessageHandler{
+public class TrackCommandHandler extends MessageHandler {
 
     private final ScrapperClient scrapperClient;
 
@@ -36,10 +36,10 @@ public class TrackCommandHandler extends MessageHandler{
         Message message = update.message();
         List<String> stringUri = new ArrayList<>(List.of(message.text().split(" ")));
         String allowedMessage = stringUri.remove(0);
-        if (allowedMessage.equals("/track")) {
+        if ("/track".equals(allowedMessage)) {
             if (stringUri.size() == 0) {
-                String messageForGetLink = "Чтобы добавить ссылку отправьте команду /track с нужными ссылками, " +
-                        "разделенными пробелами.";
+                String messageForGetLink = "Чтобы добавить ссылку отправьте команду "
+                    + "/track с нужными ссылками, разделенными пробелами.";
                 bot.send(new SendMessageAdapter(message.chat().id(), messageForGetLink)
                         .getSendMessage());
             } else {

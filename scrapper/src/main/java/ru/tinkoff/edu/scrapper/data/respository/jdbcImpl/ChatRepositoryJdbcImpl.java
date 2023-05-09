@@ -24,17 +24,17 @@ import ru.tinkoff.edu.scrapper.utils.JdbcMapper;
 @Transactional
 public class ChatRepositoryJdbcImpl implements ChatRepository {
 
-    private final String INSERT = "INSERT INTO chats (chat_id) VALUES (?)";
+    private final String insert = "INSERT INTO chats (chat_id) VALUES (?)";
 
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Chat findByChatId(Long tgChatId) {
-        String FIND_BY_CHAT_ID =
+        String findByChatId =
             "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
                 " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
                 " WHERE c.chat_id = ?";
-        return jdbcTemplate.query(FIND_BY_CHAT_ID, rs -> {
+        return jdbcTemplate.query(findByChatId, rs -> {
             List<Chat> chats = mapListChats(rs);
             return chats.isEmpty() ? null : chats.get(0);
         }, tgChatId);
@@ -42,10 +42,10 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
     @Override
     public Optional<Chat> findById(Long id) {
-        String FIND_BY_ID = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
+        String findById = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat" +
             " WHERE c.id = ?";
-        return Optional.ofNullable(jdbcTemplate.query(FIND_BY_ID, rs -> {
+        return Optional.ofNullable(jdbcTemplate.query(findById, rs -> {
             List<Chat> chats = mapListChats(rs);
             return chats.isEmpty() ? null : chats.get(0);
         }, id));
@@ -57,7 +57,7 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
-                    .prepareStatement(INSERT, new String[] {"id"});
+                    .prepareStatement(insert, new String[] {"id"});
             ps.setLong(1, chat.getChatId());
             return ps;
         }, keyHolder);
@@ -71,15 +71,15 @@ public class ChatRepositoryJdbcImpl implements ChatRepository {
 
     @Override
     public void remove(Long id) {
-        String DELETE = "DELETE FROM chats WHERE id = ?";
-        jdbcTemplate.update(DELETE, id);
+        String delete = "DELETE FROM chats WHERE id = ?";
+        jdbcTemplate.update(delete, id);
     }
 
     @Override
     public List<Chat> findAll() {
-        String FIND_ALL = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
+        String findAll = "SELECT c.id id, c.chat_id chat_id, l.id link_id, l.url url, l.last_update last_update" +
             " FROM chats AS c LEFT JOIN links AS l ON c.id = l.chat";
-        return jdbcTemplate.query(FIND_ALL, this::mapListChats);
+        return jdbcTemplate.query(findAll, this::mapListChats);
     }
 
     private List<Chat> mapListChats(ResultSet rs) throws SQLException {

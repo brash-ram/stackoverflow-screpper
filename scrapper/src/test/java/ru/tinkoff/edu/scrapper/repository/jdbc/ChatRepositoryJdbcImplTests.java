@@ -23,14 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 })
 public class ChatRepositoryJdbcImplTests {
 
-    private static Chat TEST_CHAT;
+    private static Chat testChat;
 
     @Autowired
     private ChatRepository chatRepositoryJdbcImpl;
 
     @BeforeAll
     public static void setTestChat() {
-        TEST_CHAT = new Chat()
+        testChat = new Chat()
                 .setChatId(1L);
     }
 
@@ -38,7 +38,7 @@ public class ChatRepositoryJdbcImplTests {
     @Transactional
     @Rollback
     public void saveTest() {
-        Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAT);
+        Chat chat = chatRepositoryJdbcImpl.save(testChat);
         assertNotNull(chat.getId());
     }
 
@@ -46,7 +46,7 @@ public class ChatRepositoryJdbcImplTests {
     @Transactional
     @Rollback
     public void findByIdTest() {
-        Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAT);
+        Chat chat = chatRepositoryJdbcImpl.save(testChat);
         Optional<Chat> findChat = chatRepositoryJdbcImpl.findById(chat.getId());
         assertTrue(findChat.isPresent());
         Chat presentChat = findChat.get();
@@ -58,7 +58,7 @@ public class ChatRepositoryJdbcImplTests {
     @Transactional
     @Rollback
     public void findByChatIdTest() {
-        chatRepositoryJdbcImpl.save(TEST_CHAT);
+        chatRepositoryJdbcImpl.save(testChat);
         Chat chat = chatRepositoryJdbcImpl.findByChatId(1L);
         assertNotNull(chat);
     }
@@ -67,7 +67,7 @@ public class ChatRepositoryJdbcImplTests {
     @Transactional
     @Rollback
     public void removeTest() {
-        Chat chat = chatRepositoryJdbcImpl.save(TEST_CHAT);
+        Chat chat = chatRepositoryJdbcImpl.save(testChat);
         chatRepositoryJdbcImpl.remove(chat.getId());
         assertEquals(0, chatRepositoryJdbcImpl.findAll().size());
     }
@@ -76,7 +76,7 @@ public class ChatRepositoryJdbcImplTests {
     @Transactional
     @Rollback
     public void findAll() {
-        chatRepositoryJdbcImpl.save(TEST_CHAT);
+        chatRepositoryJdbcImpl.save(testChat);
         Chat chat = new Chat().setChatId(2L);
         chatRepositoryJdbcImpl.save(chat);
 

@@ -16,7 +16,7 @@ import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 @Component
 @Slf4j
-public class UntrackCommandHandler extends MessageHandler{
+public class UntrackCommandHandler extends MessageHandler {
 
     private final ScrapperClient scrapperClient;
 
@@ -30,10 +30,10 @@ public class UntrackCommandHandler extends MessageHandler{
         Message message = update.message();
         List<String> stringUri = new ArrayList<>(List.of(message.text().split(" ")));
         String allowedMessage = stringUri.remove(0);
-        if (allowedMessage.equals("/untrack")) {
+        if ("/untrack".equals(allowedMessage)) {
             if (stringUri.size() == 0) {
-                String messageForGetLink = "Чтобы удалить ссылку отправьте команду /untrack с нужными ссылками, " +
-                        "разделенными пробелами.";
+                String messageForGetLink = "Чтобы удалить ссылку отправьте команду "
+                    + "/untrack с нужными ссылками, разделенными пробелами.";
                 bot.send(new SendMessageAdapter(message.chat().id(), messageForGetLink)
                         .getSendMessage());
             } else {

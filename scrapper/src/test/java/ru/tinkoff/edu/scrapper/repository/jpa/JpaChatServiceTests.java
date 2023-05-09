@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JpaChatServiceTests {
 
-    private static Chat TEST_CHAT;
+    private static Chat testChat;
 
     @Autowired
     private ChatService jpaChatService;
@@ -32,7 +32,7 @@ public class JpaChatServiceTests {
 
     @BeforeEach
     public void setTestChat() {
-        TEST_CHAT = new Chat()
+        testChat = new Chat()
                 .setChatId(1L);
     }
 
@@ -40,7 +40,7 @@ public class JpaChatServiceTests {
     @Transactional
     @Rollback
     public void registerTest() {
-        Chat registeredChat = jpaChatService.register(TEST_CHAT.getChatId());
+        Chat registeredChat = jpaChatService.register(testChat.getChatId());
         assertNotNull(jpaChatService.getById(registeredChat.getId()));
     }
 
@@ -48,7 +48,7 @@ public class JpaChatServiceTests {
     @Transactional
     @Rollback
     public void unregisterTest() {
-        Chat registeredChat = jpaChatService.register(TEST_CHAT.getChatId());
+        Chat registeredChat = jpaChatService.register(testChat.getChatId());
         jpaChatService.unregister(registeredChat.getChatId());
         assertNull(jpaChatService.getById(registeredChat.getId()));
     }
@@ -58,7 +58,7 @@ public class JpaChatServiceTests {
     @Transactional
     @Rollback
     public void getByChatIdTest() {
-        Chat registeredChat = jpaChatService.register(TEST_CHAT.getChatId());
+        Chat registeredChat = jpaChatService.register(testChat.getChatId());
         Chat savedChat = jpaChatService.getByChatId(registeredChat.getChatId());
         assertEquals(registeredChat, savedChat);
     }

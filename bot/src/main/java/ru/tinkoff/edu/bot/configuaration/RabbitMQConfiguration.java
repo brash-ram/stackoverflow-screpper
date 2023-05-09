@@ -56,8 +56,8 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public ClassMapper classMapper(){
-        Map<String, Class<?>> mappings = new HashMap<>();
+    public ClassMapper classMapper() {
+        Map<String, Class< ? >> mappings = new HashMap<>();
         mappings.put("ru.tinkoff.edu.scrapper.dto.request.LinkUpdateRequest", LinkUpdate.class);
 
         DefaultClassMapper classMapper = new DefaultClassMapper();
@@ -68,7 +68,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public MessageConverter jsonMessageConverter(ClassMapper classMapper) {
-        Jackson2JsonMessageConverter jsonConverter=new Jackson2JsonMessageConverter();
+        Jackson2JsonMessageConverter jsonConverter = new Jackson2JsonMessageConverter();
         jsonConverter.setClassMapper(classMapper);
         return jsonConverter;
     }

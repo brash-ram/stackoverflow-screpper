@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Entity
 @Table(name = "links")
-@SequenceGenerator(name = "links_id_seq", sequenceName = "links_id_seq", allocationSize=1)
+@SequenceGenerator(name = "links_id_seq", sequenceName = "links_id_seq", allocationSize = 1)
 public class Link {
 
     @Id

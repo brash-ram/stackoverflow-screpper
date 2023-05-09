@@ -5,7 +5,7 @@ import ru.tinkoff.edu.linkParser.dto.LinkData;
 import ru.tinkoff.edu.linkParser.dto.LinkDataGithub;
 import ru.tinkoff.edu.linkParser.enums.Site;
 
-final class LinkParserGitHub extends LinkParser{
+final class LinkParserGitHub extends LinkParser {
 
     @Override
     public LinkData parseUrl(URI url) {

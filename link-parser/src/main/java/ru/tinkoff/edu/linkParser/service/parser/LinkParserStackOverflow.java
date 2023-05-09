@@ -11,9 +11,9 @@ final class LinkParserStackOverflow extends LinkParser {
     public LinkData parseUrl(URI url) {
         if (url.getHost().equals(Site.STACK_OVERFLOW.getHost())) {
             String[] stackOverflowPath = url.getPath().replaceFirst("/", "").split("/");
-            String QUESTIONS_PATH = "questions";
+            String questionsPath = "questions";
 
-            if (stackOverflowPath.length != 0 && stackOverflowPath[0].equals(QUESTIONS_PATH)) {
+            if (stackOverflowPath.length != 0 && stackOverflowPath[0].equals(questionsPath)) {
                 return new LinkDataStackOverflow(
                         url,
                         Site.STACK_OVERFLOW,

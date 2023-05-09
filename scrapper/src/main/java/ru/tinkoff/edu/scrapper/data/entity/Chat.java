@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Entity
 @Table(name = "chats")
-@SequenceGenerator(name = "chats_id_seq", sequenceName = "chats_id_seq", allocationSize=1)
+@SequenceGenerator(name = "chats_id_seq", sequenceName = "chats_id_seq", allocationSize = 1)
 public class Chat {
 
     @Id

@@ -58,4 +58,4 @@ jobs:
                     cache: maven
 
             -   name: Run Checkstyle
-                run: mvn -pl scrapper -am -X checkstyle:check
+                run: mvn -pl scrapper -am checkstyle:check

@@ -11,7 +11,7 @@ import ru.tinkoff.edu.bot.tg.SendMessageAdapter;
 
 @Component
 @Slf4j
-public class StartCommandHandler extends MessageHandler{
+public class StartCommandHandler extends MessageHandler {
 
     private final ScrapperClient scrapperClient;
     public StartCommandHandler(Bot bot, ScrapperClient scrapperClient) {
@@ -24,7 +24,7 @@ public class StartCommandHandler extends MessageHandler{
         Message message = update.message();
         if (message.text().equals("/start")) {
             Optional<String> response = scrapperClient.addChat(message.chat().id());
-            bot.send(new SendMessageAdapter(message.chat().id(), DEFAULT_MASSAGE + "start")
+            bot.send(new SendMessageAdapter(message.chat().id(), defaultMassage + "start")
                     .getSendMessage());
         } else {
             nextHandler.handleMessage(update);

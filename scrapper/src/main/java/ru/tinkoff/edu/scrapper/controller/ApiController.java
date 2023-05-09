@@ -113,8 +113,14 @@ public interface ApiController {
             consumes = { "application/json" }
     )
     ResponseEntity<LinkResponse> linksPost(
-            @NotNull @Parameter(name = "Tg-Chat-Id", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "Tg-Chat-Id", required = true) Long tgChatId,
-            @Parameter(name = "AddLinkRequest", required = true) @Valid @RequestBody AddLinkRequest addLinkRequest
+            @NotNull
+            @Parameter(name = "Tg-Chat-Id", required = true, in = ParameterIn.HEADER)
+            @RequestHeader(value = "Tg-Chat-Id")
+            Long tgChatId,
+            @Parameter(name = "AddLinkRequest", required = true)
+            @Valid
+            @RequestBody
+            AddLinkRequest addLinkRequest
     );
 
     /**

@@ -5,7 +5,7 @@ import lombok.Data;
 import ru.tinkoff.edu.linkParser.enums.Site;
 
 @Data
-public final class LinkDataGithub extends LinkData{
+public final class LinkDataGithub extends LinkData {
     private String user;
     private String repository;
 
