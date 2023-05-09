@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.scrapper.service.jpaImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.scrapper.data.entity.Link;
 import ru.tinkoff.edu.scrapper.data.respository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.scrapper.service.ChatService;
@@ -47,6 +48,7 @@ public class JpaLinkService implements LinkService {
     }
 
     @Override
+    @Transactional
     public Link remove(long tgChatId, URI url) {
         Optional<Link> resultLink = chatService.getByChatId(tgChatId).getLinks()
                 .stream()
