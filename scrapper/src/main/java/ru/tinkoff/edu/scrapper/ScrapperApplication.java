@@ -2,6 +2,7 @@ package ru.tinkoff.edu.scrapper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
@@ -11,7 +12,8 @@ import ru.tinkoff.edu.LinkParserApplication;
 import ru.tinkoff.edu.scrapper.configuration.ApplicationConfig;
 
 @SpringBootApplication()
-@EnableConfigurationProperties({ApplicationConfig.class})
+//@EnableConfigurationProperties({ApplicationConfig.class})
+@ConfigurationPropertiesScan
 @EnableScheduling
 public class ScrapperApplication {
     public static void main(String[] args) {

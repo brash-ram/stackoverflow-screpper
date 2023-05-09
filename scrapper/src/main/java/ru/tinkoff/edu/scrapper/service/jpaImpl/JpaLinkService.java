@@ -64,11 +64,6 @@ public class JpaLinkService implements LinkService {
 
     @Override
     public List<Link> listAll(long tgChatId) {
-        Chat chat = chatService.getByChatId(tgChatId);
-        if (!chat.getLinks().isEmpty()) {
-            return chat.getLinks();
-        } else {
-            throw new RuntimeException("Links not found");
-        }
+        return chatService.getByChatId(tgChatId).getLinks();
     }
 }

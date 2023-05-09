@@ -12,5 +12,6 @@ public record ApplicationConfig(
         @NotNull String test,
         Scheduler scheduler,
         Integer linkUpdate,
-        AccessType databaseAccessType
+        AccessType databaseAccessType,
+        Boolean useQueue
 ) {}

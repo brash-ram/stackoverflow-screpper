@@ -1,8 +1,14 @@
 app:
     test: test
     scheduler:
-        interval: 60000
+        interval: 30000
     database-access-type: jpa
+    useQueue: true
+
+rabbit:
+    queue: scrapper-queue
+    exchange: scrapper-exchange
+
 
 scheduler:
     linkUpdate: 60000
@@ -30,7 +36,7 @@ spring:
         properties:
             hibernate:
                 format_sql: true
-                generate_statistics: true
+                generate_statistics: false
                 jdbc:
                     batch_size: 50
                     fetch_size: 50
@@ -45,3 +51,9 @@ spring:
         username: postgres
         password: qwerty
         driver-class-name: org.postgresql.Driver
+
+    rabbitmq:
+        host: localhost
+        username: user
+        password: qwerty
+        port: 5672
