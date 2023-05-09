@@ -20,7 +20,6 @@ public class LinkUpdaterScheduler {
     private final ApiService apiService;
     private final LinkService linkService;
     private final LinkParseService linkParseService;
-
     private final LinkUpdateService linkUpdateService;
 
     @Value("${scheduler.linkUpdate}")
