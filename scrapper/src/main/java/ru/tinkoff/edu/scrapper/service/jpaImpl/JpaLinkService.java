@@ -33,7 +33,7 @@ public class JpaLinkService implements LinkService {
     public void updateTimeUpdate(Long linkId, Timestamp timeUpdate) {
         jpaLinkRepository.save(
                 jpaLinkRepository.findById(linkId)
-                        .orElseThrow(() -> new RuntimeException("Link with id [" + linkId.toString() + "] not found"))
+                        .orElseThrow(() -> new RuntimeException("Link with id [" + linkId + "] not found"))
                         .setLastUpdate(timeUpdate)
         );
     }
