@@ -17,6 +17,6 @@ public class IntegrationTests {
 
     @Test
     public void databaseTest() {
-        var result = jdbcTemplate.queryForList("SELECT * FROM chats");
+        jdbcTemplate.queryForList("SELECT * FROM chats");
     }
 }
