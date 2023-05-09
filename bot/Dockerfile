@@ -7,9 +7,9 @@ COPY link-parser ./link-parser
 COPY bot ./bot
 COPY pom.xml .
 
-RUN mvn clean package -DskipTests -pl scrapper -am
+RUN mvn clean package -DskipTests -pl bot -am
 
-FROM openjdk:17-alpine
+FROM openjdk:17
 WORKDIR /opt/app
-COPY --from=builder /opt/app/scrapper/target/*.jar ./app.jar
+COPY --from=builder /opt/app/bot/target/*.jar ./app.jar
 CMD [ "java", "-jar", "/opt/app/app.jar" ]
