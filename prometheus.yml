@@ -1,0 +1,12 @@
+scrape_configs:
+    -   job_name: 'bot_monitoring'
+        scrape_interval: 5s
+        metrics_path: '/metrics'
+        static_configs:
+            - targets: ['bot:8090']
+
+    -   job_name: 'scrapper_monitoring'
+        scrape_interval: 5s
+        metrics_path: '/metrics'
+        static_configs:
+            -   targets: ['scrapper:8091']

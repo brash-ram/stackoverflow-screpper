@@ -13,6 +13,7 @@ services:
             dockerfile: ./bot/Dockerfile
         ports:
             - "8080:8080"
+            - "8090:8090"
         environment:
             BOT_TOKEN: ${BOT_TOKEN}
             SCRAPPER_URL: "http://scrapper:8081"
@@ -33,6 +34,7 @@ services:
             dockerfile: ./scrapper/Dockerfile
         ports:
             - "8081:8081"
+            - "8091:8091"
         environment:
             GITHUB_TOKEN: ${GITHUB_TOKEN}
             DB_URL: "jdbc:postgresql://postgres:5432/scrapper"
@@ -98,3 +100,29 @@ services:
             - "5672:5672"
         networks:
             - backend
+
+    prometheus:
+        image: prom/prometheus:latest
+        volumes:
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
+            - ./volumes/prometheus:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/etc/prometheus/console_libraries'
+            - '--web.console.templates=/etc/prometheus/consoles'
+            - '--web.enable-lifecycle'
+        ports:
+            - "9090:9090"
+
+    grafana:
+        user: root
+        image: grafana/grafana-oss
+        volumes:
+            - ./volumes/grafana:/var/lib/grafana
+        environment:
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_USERS_ALLOW_SIGN_UP=false
+        ports:
+            - "3000:3000"
