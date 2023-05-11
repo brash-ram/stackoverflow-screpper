@@ -118,8 +118,7 @@ services:
             - "9090:9090"
 
     grafana:
-        user: root
-        image: grafana/grafana-oss
+        build: './migrations/grafana'
         volumes:
             - ./volumes/grafana:/var/lib/grafana
         environment:
