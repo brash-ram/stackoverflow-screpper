@@ -1,7 +1,7 @@
 app:
     test: test
     scheduler:
-        interval: 30000
+        interval: ${SCHEDULER_INTERVAL}
     database-access-type: jpa
     useQueue: true
 
@@ -11,7 +11,7 @@ rabbit:
 
 
 scheduler:
-    linkUpdate: 60000
+    linkUpdate: ${TIME_UPDATE}
 api:
     github:
         token: ${GITHUB_TOKEN}

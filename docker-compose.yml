@@ -40,6 +40,8 @@ services:
             DB_URL: "jdbc:postgresql://postgres:5432/scrapper"
             BOT_URL: "http://bot:8080"
             RABBIT_HOST: "rabbitmq"
+            TIME_UPDATE: 6000
+            SCHEDULER_INTERVAL: 3000
         networks:
             - backend
         deploy:
