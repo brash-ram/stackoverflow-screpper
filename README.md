@@ -16,7 +16,6 @@
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 
-
 Многомодульное `Maven` `Java` приложение с использованием `Spring Boot`. 
 Приложение позволяет парсить различные ресурсы, например `GitHub` или `StackOverflow`, и присылать уведомление
 об обновлении в телеграмм бота, через которого происходит управление отслеживаемыми ссылками.
@@ -44,6 +43,8 @@
 Для проекта создан `Checkstyle`. Также настроен `CI/CD` на основе сервиса `GitHub Actions`, 
 где собирается проект, создается `Docker Image` проекта и выгружается в `GitHub Packages`,
 также там проверяется Checkstyle.
+
+Схема базы данных PostgreSQL - https://drawsql.app/teams/team-name-3/diagrams/tonkoff-scrapper
 
 ## Quick Start
 
