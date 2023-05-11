@@ -1,6 +1,6 @@
 # Stackoverflow Scrapper
 
-## Ссылка на телеграмм бота - https://t.me/programmer_notifications_bot
+## [Ссылка на телеграмм бота](https://t.me/programmer_notifications_bot)
 
 ## Стек технологий
 
@@ -44,13 +44,13 @@
 где собирается проект, создается `Docker Image` проекта и выгружается в `GitHub Packages`,
 также там проверяется Checkstyle.
 
-Схема базы данных PostgreSQL - https://drawsql.app/teams/team-name-3/diagrams/tonkoff-scrapper
+[Схема базы данных PostgreSQL](https://drawsql.app/teams/team-name-3/diagrams/tonkoff-scrapper)
 
 ## Quick Start
 
 Для запуска потребуется указать переменные окружения:
-- `BOT_TOKEN` - токен телеграмм бота (Можно получить у BotFather https://t.me/BotFather)
-- `GITHUB_TOKEN` - токен GitHub аккаунта (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+- `BOT_TOKEN` - токен телеграмм бота (Можно получить у [BotFather](https://t.me/BotFather))
+- `GITHUB_TOKEN` - [токен GitHub аккаунта](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 Запуск через докер:
 ```shell
@@ -59,8 +59,8 @@ docker compose up -d
 
 ## Примеры отслеживаемых ссылок
 
-- `Вопрос на StackOverflow` - https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array
-- `Репозиторий GitHub` - https://github.com/brash-ram/tinkoff-screpper
+- `Вопрос на StackOverflow` - [Пример](https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array)
+- `Репозиторий GitHub` - [Пример](https://github.com/brash-ram/tinkoff-screpper)
 
 ## Endpoints
 
