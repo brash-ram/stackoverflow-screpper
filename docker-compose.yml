@@ -13,6 +13,7 @@ services:
             dockerfile: ./bot/Dockerfile
         ports:
             - "8080:8080"
+            - "8090:8090"
         environment:
             BOT_TOKEN: ${BOT_TOKEN}
             SCRAPPER_URL: "http://scrapper:8081"
@@ -33,11 +34,14 @@ services:
             dockerfile: ./scrapper/Dockerfile
         ports:
             - "8081:8081"
+            - "8091:8091"
         environment:
             GITHUB_TOKEN: ${GITHUB_TOKEN}
             DB_URL: "jdbc:postgresql://postgres:5432/scrapper"
             BOT_URL: "http://bot:8080"
             RABBIT_HOST: "rabbitmq"
+            TIME_UPDATE: 6000
+            SCHEDULER_INTERVAL: 3000
         networks:
             - backend
         deploy:
@@ -58,8 +62,6 @@ services:
             - ./volumes/postgres-data:/var/lib/postgresql/data
         networks:
             - backend
-        ports:
-            - "5434:5432"
         restart: unless-stopped
         healthcheck:
             test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -85,6 +87,7 @@ services:
             - ./migrations:/liquibase/changelog
         networks:
             - backend
+
     rabbitmq:
         image: rabbitmq:3-management
         restart: always
@@ -95,6 +98,32 @@ services:
             - ./volumes/rabbitmq:/var/lib/rabbitmq
         ports:
             - "15672:15672"
-            - "5672:5672"
         networks:
             - backend
+
+    prometheus:
+        image: prom/prometheus:latest
+        volumes:
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
+            - ./volumes/prometheus:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/etc/prometheus/console_libraries'
+            - '--web.console.templates=/etc/prometheus/consoles'
+            - '--web.enable-lifecycle'
+        networks:
+            - backend
+
+    grafana:
+        build: './migrations/grafana'
+        volumes:
+            - ./volumes/grafana:/var/lib/grafana
+        environment:
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_USERS_ALLOW_SIGN_UP=false
+        networks:
+            - backend
+        ports:
+            - "3000:3000"
